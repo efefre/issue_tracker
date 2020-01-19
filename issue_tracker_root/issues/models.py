@@ -57,7 +57,7 @@ class Comment(models.Model):
         return f'Comment from issue {self.issue.summary}'
 
 
-def get_attachmet_path(instance, filename):
+def get_attachment_path(instance, filename):
     return 'uploads/{0}/{1}'.format(instance.issue.id, filename)
 
 class Attachment(models.Model):
