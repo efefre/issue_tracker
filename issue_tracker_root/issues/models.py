@@ -45,3 +45,13 @@ class Issue(models.Model):
 
     def __str__(self):
         return f'{self.summary} (project: {self.project})'
+
+class Comment(models.Model):
+    comment_text = models.TextField(verbose_name=_('Comment'))
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
+    updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Author'))
+    issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Issue'))
+
+    def __str__(self):
+        return f'Comment from issue {self.issue.summary}'
