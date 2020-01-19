@@ -118,3 +118,6 @@ dmypy.json
 
 # Settings (prod enivronment)
 **/prod.py
+
+# Directory for uploads
+uploads/
