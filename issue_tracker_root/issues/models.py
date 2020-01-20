@@ -32,6 +32,14 @@ class Issue(models.Model):
         ('low', 'Low')
     ]
 
+    ENVIRONMENT_CHOICES = [
+        ('local', 'Local'),
+        ('dev', 'Development'),
+        ('test', 'Test'),
+        ('stage', 'Stage'),
+        ('prod', 'Production')
+    ]
+
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='issues', verbose_name=_('Project'))
     issue_type = models.CharField(choices=ISSUE_TYPE_CHOICES, default='task', verbose_name=_('Issue type'),
                                   max_length=5)
@@ -47,7 +55,8 @@ class Issue(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
     summary = models.TextField(verbose_name=_('Summary'), max_length=250)
     description = models.TextField(verbose_name=_('Description'))
-    environment = models.TextField(verbose_name=_('Environment'), max_length=100)
+    environment = models.CharField(choices=ENVIRONMENT_CHOICES, default='local', verbose_name=_('Environment'),
+                                max_length=100)
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
 
     def create_slug(self):
