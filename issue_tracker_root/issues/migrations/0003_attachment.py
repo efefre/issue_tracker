@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Attachment',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to=issues.models.get_attachmet_path, verbose_name='File')),
+                ('file', models.FileField(upload_to=issues.models.get_attachment_path, verbose_name='File')),
                 ('added', models.DateTimeField(auto_now_add=True, verbose_name='Added')),
                 ('issue', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attachments', to='issues.Issue', verbose_name='Issue')),
             ],

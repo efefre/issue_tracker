@@ -60,9 +60,10 @@ class Comment(models.Model):
 def get_attachment_path(instance, filename):
     return 'uploads/{0}/{1}'.format(instance.issue.id, filename)
 
+
 class Attachment(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='attachments', verbose_name=_('Issue'))
-    file = models.FileField(upload_to=get_attachmet_path, verbose_name=_('File'))
+    file = models.FileField(upload_to=get_attachment_path, verbose_name=_('File'))
     added = models.DateTimeField(auto_now_add=True, verbose_name=_('Added'))
 
     def __str__(self):
