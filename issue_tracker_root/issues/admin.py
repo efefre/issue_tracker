@@ -1,9 +1,17 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import Project, Issue, Comment, Attachment
+# Register your models here.
+
+
+class IssueAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('project', 'issue_type', 'issue_status', 'priority', 'assingee', 'reporter',
+                       'summary', 'description', 'environment')
+        }),
+    )
 
 admin.site.register(Project)
-admin.site.register(Issue)
+admin.site.register(Issue, IssueAdmin)
 admin.site.register(Comment)
 admin.site.register(Attachment)
