@@ -48,6 +48,18 @@ class Issue(models.Model):
     summary = models.TextField(verbose_name=_('Summary'), max_length=250)
     description = models.TextField(verbose_name=_('Description'))
     environment = models.TextField(verbose_name=_('Environment'), max_length=100)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+
+    def create_slug(self):
+        project_slug = str(self.project.slug).upper()
+        count_issue_in_project = Issue.objects.filter(project=self.project).count()
+        issue_slug = f'{project_slug}{count_issue_in_project+1}'
+        return issue_slug
+
+    def save(self, *args, **kwargs):
+        self.slug = self.create_slug()
+        return super().save()
+
 
     def __str__(self):
         return f'{self.summary} (project: {self.project})'
