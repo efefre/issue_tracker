@@ -88,4 +88,4 @@ class Attachment(models.Model):
     added = models.DateTimeField(auto_now_add=True, verbose_name=_('Added'))
 
     def __str__(self):
-        return f'Attachment from issue {self.issue.summary} (id: {self.issue.id}'
+        return f'Attachment from issue {self.issue.summary} (id: {self.issue.id})'
