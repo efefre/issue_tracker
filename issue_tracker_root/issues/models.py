@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
+import pendulum
 
 # Create your models here.
 class Project(models.Model):
@@ -58,7 +59,9 @@ class Comment(models.Model):
 
 
 def get_attachment_path(instance, filename):
-    return 'uploads/{0}/{1}'.format(instance.issue.id, filename)
+    datetime=pendulum.now('Europe/Warsaw')
+    datetime = datetime.to_datetime_string().replace(':','_')
+    return 'uploads/{0}/{1}-{2}'.format(instance.issue.id, datetime, filename)
 
 
 class Attachment(models.Model):
