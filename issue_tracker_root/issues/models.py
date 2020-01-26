@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
@@ -47,9 +48,9 @@ class Issue(models.Model):
                                     max_length=20)
     priority = models.CharField(choices=PRIORITY_CHOICES, default='low', verbose_name=_('Issue priority'),
                                 max_length=10)
-    assingee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='issues_assignee',
+    assingee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='issues_assignee',
                                  verbose_name=_('Assignee'))
-    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='issues_reporter',
+    reporter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='issues_reporter',
                                  verbose_name=_('Reporter'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
@@ -78,7 +79,7 @@ class Comment(models.Model):
     comment_text = models.TextField(verbose_name=_('Comment'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Author'))
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Author'))
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Issue'))
 
     def __str__(self):
