@@ -1,0 +1,1 @@
+$('input#id_username').addClass('form-control')
