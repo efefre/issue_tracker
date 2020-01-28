@@ -28,9 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
