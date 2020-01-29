@@ -3,6 +3,8 @@ $('input#id_username').addClass('form-control')
 $('input#id_email').addClass('form-control')
 $('input#id_password1').addClass('form-control')
 $('input#id_password2').addClass('form-control')
+$('input#id_password').addClass('form-control')
+$('input#id_login').addClass('form-control')
 
 // alerts
 setTimeout(function() {
