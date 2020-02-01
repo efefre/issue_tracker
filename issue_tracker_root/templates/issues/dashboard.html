@@ -1,0 +1,65 @@
+{% extends "issues/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+<div class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">My Dashboard</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">Projects</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">List of all projects in Issue Tracker.</p>
+                <a href="#" class="btn btn-primary">More</a>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col-md-6 -->
+          <div class="col-lg-6">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">Assigned to me</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">List of all issues assigned to me in Issue Tracker.</p>
+                <a href="#" class="btn btn-primary">More</a>
+              </div>
+            </div>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+</div>
+<!-- ./wrapper -->
+
+</div>
+{% endblock content %}
