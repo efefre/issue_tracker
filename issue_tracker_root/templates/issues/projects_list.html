@@ -68,12 +68,14 @@
                           </small>
                       </td>
                       <td class="project_progress">
+                          <small>All issues: {{project.issues.all|length}} | Done: {{project.done_issues_in_project}}</small>
                           <div class="progress progress-sm">
-                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
+                              {% widthratio project.done_issues_in_project project.issues.all|length 100 as ratio %}
+                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="{{project.done_issues_in_project}}" aria-volumemin="0" aria-volumemax="{{project.issues.all|length}}" style="width:{{ratio}}%">
                               </div>
                           </div>
                           <small>
-                              57% Complete
+                              {{ratio}}% Complete
                           </small>
                       </td>
                       <td class="project-state">
