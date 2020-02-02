@@ -1,17 +1,37 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
-from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 import pendulum
 
 
 # Create your models here.
 class Project(models.Model):
+    PROJECT_STATUS_CHOICES = [
+        ('in progress', 'In progress'),
+        ('success', 'success'),
+        ('cancel', 'cancel')
+    ]
+
+    only_letters = RegexValidator(r'^[a-zA-Z]*$', 'Only letters are allowed.')
+
     name = models.TextField(verbose_name=_('Project name'), unique=True)
-    slug = models.SlugField(max_length=10)
+    slug = models.SlugField(max_length=10, validators=[only_letters])
+    status = models.CharField(choices=PROJECT_STATUS_CHOICES,
+                              default='in progress',
+                              verbose_name=_('Project status'),
+                              max_length=20)
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
 
     def __str__(self):
         return self.name
+
+    def done_issues_in_project(self):
+        count = 0
+        for issue in self.issues.all():
+            if issue.issue_status == 'done':
+                count += 1
+        return count
 
 
 class Issue(models.Model):

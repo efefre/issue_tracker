@@ -3,9 +3,11 @@
 <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="https://github.com/efefre/issue_tracker" target="_blank" title="Github Repository"><i class="fab fa-github" style="margin-left: 10px; margin-top: 10px;"></i></a>
+    <a href="{% url 'issues:dashboard' %}" class="brand-link">
       <span class="brand-text font-weight-light">Issue Tracker</span>
     </a>
+
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -13,7 +15,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         {% if request.user.profile_img %}
         <div class="image">
-          <img src="media/{{request.user.profile_img}}" class="img-circle elevation-2" alt="User Image">
+          <img src="/media/{{request.user.profile_img}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{request.user}}</a>
