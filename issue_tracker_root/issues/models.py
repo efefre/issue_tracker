@@ -7,8 +7,17 @@ import pendulum
 
 # Create your models here.
 class Project(models.Model):
+    PROJECT_STATUS_CHOICES = [
+        ('in progress', 'In progress'),
+        ('success', 'success'),
+        ('cancel', 'cancel')
+    ]
+
     name = models.TextField(verbose_name=_('Project name'), unique=True)
     slug = models.SlugField(max_length=10)
+    project_status = models.CharField(choices=PROJECT_STATUS_CHOICES, default='in progress', verbose_name=_('Project status'),
+                                    max_length=20)
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
 
     def __str__(self):
         return self.name
