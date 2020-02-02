@@ -2,9 +2,8 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "Dashboard" %}{% endblock %}
-
+{% block body_class %}sidebar-mini{% endblock body_class %}
 {% block content %}
-<div class="hold-transition sidebar-mini">
 <div class="wrapper">
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -61,5 +60,4 @@
 </div>
 <!-- ./wrapper -->
 
-</div>
 {% endblock content %}
