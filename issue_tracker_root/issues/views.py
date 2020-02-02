@@ -17,3 +17,7 @@ class DashboardView(TemplateView):
 class ProjectsListView(ListView):
     model = Project
     template_name = 'issues/projects_list.html'
+
+    def get_queryset(self):
+        query = super().get_queryset().order_by('-created')
+        return query
