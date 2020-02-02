@@ -15,12 +15,21 @@ class Project(models.Model):
 
     name = models.TextField(verbose_name=_('Project name'), unique=True)
     slug = models.SlugField(max_length=10)
-    status = models.CharField(choices=PROJECT_STATUS_CHOICES, default='in progress', verbose_name=_('Project status'),
-                                    max_length=20)
+    status = models.CharField(choices=PROJECT_STATUS_CHOICES,
+                              default='in progress',
+                              verbose_name=_('Project status'),
+                              max_length=20)
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
 
     def __str__(self):
         return self.name
+
+    def done_issues_in_project(self):
+        count = 0
+        for issue in self.issues.all():
+            if issue.issue_status == 'done':
+                count += 1
+        return count
 
 
 class Issue(models.Model):
