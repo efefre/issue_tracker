@@ -26,7 +26,13 @@
 
     <!-- Main content -->
     <section class="content">
-
+    {% if not project_list %}
+        <p>There is no projects!</p>
+        <a class="btn btn-primary btn-sm" href="#">
+            <i class="fas fa-plus"></i>
+            Add
+        </a>
+    {% else %}
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
@@ -114,7 +120,7 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
+    {% endif %}
     </section>
     <!-- /.content -->
   </div>
