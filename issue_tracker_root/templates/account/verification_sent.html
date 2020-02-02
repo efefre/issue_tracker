@@ -3,10 +3,10 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+{% block body_class %}login-page{% endblock body_class %}
 
 {% block content %}
 
-<div class="hold-transition login-page">
     <div class="login-box">
         <h1>{% trans "Verify Your E-mail" %}</h1>
 
@@ -16,5 +16,5 @@
             </div>
         </div>
     </div>
-</div>
+
 {% endblock %}

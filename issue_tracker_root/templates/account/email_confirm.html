@@ -4,10 +4,11 @@
 {% load account %}
 
 {% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block body_class %}login-page{% endblock body_class %}
 
 
 {% block content %}
-<div class="hold-transition login-page">
+
     <div class="login-box">
         <h1>{% trans "Confirm E-mail" %}</h1>
         <div class="card">
@@ -34,5 +35,5 @@
             </div>
         </div>
     </div>
-</div>
+
 {% endblock %}
