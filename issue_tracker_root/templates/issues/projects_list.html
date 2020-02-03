@@ -12,7 +12,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Projects</h1>
+            <h1>Projects <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-plus"></i> Add</a></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -28,10 +28,6 @@
     <section class="content">
     {% if not project_list %}
         <p>There is no projects!</p>
-        <a class="btn btn-primary btn-sm" href="#">
-            <i class="fas fa-plus"></i>
-            Add
-        </a>
     {% else %}
       <!-- Default box -->
       <div class="card">
