@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, ListView, FormView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView
 
-from .forms import AddProjectForm
+from .forms import AddProjectForm, UpdateProjectForm
 from .models import Issue, Project
 
 
@@ -33,3 +34,13 @@ class AddProjectView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class UpdateProjectView(UpdateView):
+    model = Project
+    template_name = 'issues/update_project.html'
+    form_class = UpdateProjectForm
+
+    def get_success_url(self):
+        return reverse('issues:projects-list')
