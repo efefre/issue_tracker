@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, ListView, FormView, UpdateView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
 
 from .forms import AddProjectForm, UpdateProjectForm
 from .models import Issue, Project
@@ -44,3 +44,11 @@ class UpdateProjectView(UpdateView):
 
     def get_success_url(self):
         return reverse('issues:projects-list')
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteProjectView(DeleteView):
+    model = Project
+    template_name = 'issues/confirm_delete_project.html'
+    context_object_name = 'delete_project'
+    success_url = '/projects'
