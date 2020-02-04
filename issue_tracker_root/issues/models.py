@@ -68,7 +68,7 @@ class Issue(models.Model):
                                     max_length=20)
     priority = models.CharField(choices=PRIORITY_CHOICES, default='low', verbose_name=_('Issue priority'),
                                 max_length=10)
-    assingee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='issues_assignee',
+    assignee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='issues_assignee',
                                  verbose_name=_('Assignee'))
     reporter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='issues_reporter',
                                  verbose_name=_('Reporter'))
