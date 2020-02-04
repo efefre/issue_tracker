@@ -52,3 +52,16 @@ class DeleteProjectView(DeleteView):
     template_name = 'issues/confirm_delete_project.html'
     context_object_name = 'delete_project'
     success_url = '/projects'
+
+
+@method_decorator(login_required, name='dispatch')
+class ProjectDetailView(ListView):
+    model = Issue
+    template_name = 'issues/project_detail.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        context['issue_in_project'] = Issue.objects.filter(project__slug=slug)
+        context['project_detail'] = Project.objects.get(slug=slug)
+        return context
