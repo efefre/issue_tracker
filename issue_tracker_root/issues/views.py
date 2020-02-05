@@ -67,3 +67,14 @@ class ProjectDetailView(ListView):
         context['bugs_in_project'] = Issue.objects.filter(project__slug=slug, type='bug').order_by('-created')
         context['project_detail'] = Project.objects.get(slug=slug)
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class IssueDetailView(TemplateView):
+    model = Issue
+    template_name = 'issues/issue.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['issue_detail'] = Issue.objects.get(slug=self.kwargs['slug'])
+        return context
