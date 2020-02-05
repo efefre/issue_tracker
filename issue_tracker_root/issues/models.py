@@ -29,7 +29,7 @@ class Project(models.Model):
     def done_issues_in_project(self):
         count = 0
         for issue in self.issues.all():
-            if issue.issue_status == 'done':
+            if issue.status == 'done':
                 count += 1
         return count
 
@@ -65,7 +65,7 @@ class Issue(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='issues', verbose_name=_('Project'))
     issue_type = models.CharField(choices=ISSUE_TYPE_CHOICES, default='task', verbose_name=_('Issue type'),
                                   max_length=5)
-    issue_status = models.CharField(choices=ISSUE_STATUS_CHOICES, default='to do', verbose_name=_('Issue status'),
+    status = models.CharField(choices=ISSUE_STATUS_CHOICES, default='to do', verbose_name=_('Issue status'),
                                     max_length=20)
     priority = models.CharField(choices=PRIORITY_CHOICES, default='low', verbose_name=_('Issue priority'),
                                 max_length=10)

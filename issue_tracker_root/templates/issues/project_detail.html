@@ -85,7 +85,17 @@
                         </td>
                         <td>
                             <a>
-                                {{issue.issue_status}}
+                                <span class="badge
+                          {% if issue.status == 'done' %}
+                            badge-success
+                          {% elif issue.status == 'in progress' %}
+                            badge-warning
+                          {% elif issue.status == 'to do' %}
+                            badge-primary
+                          {% elif issue.status == 'cancel' %}
+                            badge-danger
+                          {% endif %}
+                        ">{{issue.status|upper}}
                             </a>
                             <br/>
                         </td>
@@ -176,7 +186,17 @@
                         </td>
                         <td>
                             <a>
-                                {{issue.issue_status}}
+                                <span class="badge
+                          {% if issue.status == 'done' %}
+                            badge-success
+                          {% elif issue.status == 'in progress' %}
+                            badge-warning
+                          {% elif issue.status == 'to do' %}
+                            badge-primary
+                          {% elif issue.status == 'cancel' %}
+                            badge-danger
+                          {% endif %}
+                        ">{{issue.status|upper}}
                             </a>
                             <br/>
                         </td>
