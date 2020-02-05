@@ -107,7 +107,7 @@
                                 <br/>
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="#">
+                                <a class="btn btn-primary btn-sm" href="{% url 'issues:issue-detail' slug=issue.slug %}">
                                     <i class="fas fa-folder">
                                     </i>
                                     View
@@ -209,7 +209,7 @@
                                 <br/>
                             </td>
                             <td class="project-actions text-right">
-                                <a class="btn btn-primary btn-sm" href="#">
+                                <a class="btn btn-primary btn-sm" href="{% url 'issues:issue-detail' slug=issue.slug %}">
                                     <i class="fas fa-folder">
                                     </i>
                                     View
