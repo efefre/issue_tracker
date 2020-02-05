@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.core.validators import RegexValidator
 import pendulum
@@ -94,6 +95,10 @@ class Issue(models.Model):
 
     def __str__(self):
         return f'{self.summary} (project: {self.project})'
+
+
+    def get_absolute_url(self):
+        return reverse('issues:issue-detail', kwargs={'slug':self.slug})
 
 
 class Comment(models.Model):
