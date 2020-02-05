@@ -52,10 +52,10 @@
                         <th style="width: 35%">
                             Summary
                         </th>
-                        <th>
+                        <th class="text-center">
                             Type
                         </th>
-                        <th>
+                        <th class="text-center">
                             Status
                         </th>
                         <th style="width: 10%" class="text-center">
@@ -77,13 +77,13 @@
                             </a>
                             <br/>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a>
                                 <i class="fas fa-check-square" style="color:#007bff"></i> {{issue.issue_type}}
                             </a>
                             <br/>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a>
                                 <span class="badge
                           {% if issue.status == 'done' %}
@@ -99,7 +99,7 @@
                             </a>
                             <br/>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a>
                                 {{issue.assignee}}
                             </a>
@@ -153,10 +153,10 @@
                         <th style="width: 35%">
                             Summary
                         </th>
-                        <th>
+                        <th class="text-center">
                             Type
                         </th>
-                        <th>
+                        <th class="text-center">
                             Status
                         </th>
                         <th style="width: 10%" class="text-center">
@@ -178,13 +178,13 @@
                             </a>
                             <br/>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a>
                                <i class="fas fa-exclamation-circle" style="color: red"></i> {{issue.issue_type}}
                             </a>
                             <br/>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a>
                                 <span class="badge
                           {% if issue.status == 'done' %}
@@ -200,7 +200,7 @@
                             </a>
                             <br/>
                         </td>
-                        <td>
+                        <td class="text-center">
                             <a>
                                 {{issue.assignee}}
                             </a>
