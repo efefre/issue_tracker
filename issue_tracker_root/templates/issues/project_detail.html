@@ -30,209 +30,211 @@
         {% if not issues_in_project %}
         <p>There is no issues in this project!</p>
         {% else %}
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Tasks</h3>
+            {% if tasks_in_project %}
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tasks</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
-                        <i class="fas fa-minus"></i></button>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card-body p-0">
-                <table class="table table-striped projects">
-                    <thead>
-                    <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
-                        <th style="width: 35%">
-                            Summary
-                        </th>
-                        <th class="text-center">
-                            Type
-                        </th>
-                        <th class="text-center">
-                            Status
-                        </th>
-                        <th style="width: 10%" class="text-center">
-                            Assignee
-                        </th>
-                        <th style="width: 30%">
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for issue in tasks_in_project %}
-                    <tr>
-                        <td>
-                            {{ forloop.counter }}
-                        </td>
-                        <td>
-                            <a>
-                                {{issue.summary|truncatechars:50}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                                <i class="fas fa-check-square" style="color:#007bff"></i> {{issue.issue_type}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                                <span class="badge
-                          {% if issue.status == 'done' %}
-                            badge-success
-                          {% elif issue.status == 'in progress' %}
-                            badge-warning
-                          {% elif issue.status == 'to do' %}
-                            badge-primary
-                          {% elif issue.status == 'cancel' %}
-                            badge-danger
-                          {% endif %}
-                        ">{{issue.status|upper}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                                {{issue.assignee}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Bugs</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                            title="Collapse">
-                        <i class="fas fa-minus"></i></button>
+                <div class="card-body p-0">
+                    <table class="table table-striped projects">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                #
+                            </th>
+                            <th style="width: 35%">
+                                Summary
+                            </th>
+                            <th class="text-center">
+                                Type
+                            </th>
+                            <th class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 10%" class="text-center">
+                                Assignee
+                            </th>
+                            <th style="width: 30%">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for issue in tasks_in_project %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
+                                <a>
+                                    {{issue.summary|truncatechars:50}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    <i class="fas fa-check-square" style="color:#007bff"></i> {{issue.issue_type}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    <span class="badge
+                              {% if issue.status == 'done' %}
+                                badge-success
+                              {% elif issue.status == 'in progress' %}
+                                badge-warning
+                              {% elif issue.status == 'to do' %}
+                                badge-primary
+                              {% elif issue.status == 'cancel' %}
+                                badge-danger
+                              {% endif %}
+                            ">{{issue.status|upper}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    {{issue.assignee}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm" href="#">
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="#">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="#">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+
+                <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+            {% endif %}
+            {% if bugs_in_project %}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Bugs</h3>
 
-            <div class="card-body p-0">
-                <table class="table table-striped projects">
-                    <thead>
-                    <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
-                        <th style="width: 35%">
-                            Summary
-                        </th>
-                        <th class="text-center">
-                            Type
-                        </th>
-                        <th class="text-center">
-                            Status
-                        </th>
-                        <th style="width: 10%" class="text-center">
-                            Assignee
-                        </th>
-                        <th style="width: 30%">
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for issue in bugs_in_project %}
-                    <tr>
-                        <td>
-                            {{ forloop.counter }}
-                        </td>
-                        <td>
-                            <a>
-                                {{issue.summary|truncatechars:50}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                               <i class="fas fa-exclamation-circle" style="color: red"></i> {{issue.issue_type}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                                <span class="badge
-                          {% if issue.status == 'done' %}
-                            badge-success
-                          {% elif issue.status == 'in progress' %}
-                            badge-warning
-                          {% elif issue.status == 'to do' %}
-                            badge-primary
-                          {% elif issue.status == 'cancel' %}
-                            badge-danger
-                          {% endif %}
-                        ">{{issue.status|upper}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="text-center">
-                            <a>
-                                {{issue.assignee}}
-                            </a>
-                            <br/>
-                        </td>
-                        <td class="project-actions text-right">
-                            <a class="btn btn-primary btn-sm" href="#">
-                                <i class="fas fa-folder">
-                                </i>
-                                View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="#">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                                Edit
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Delete
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <table class="table table-striped projects">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                #
+                            </th>
+                            <th style="width: 35%">
+                                Summary
+                            </th>
+                            <th class="text-center">
+                                Type
+                            </th>
+                            <th class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 10%" class="text-center">
+                                Assignee
+                            </th>
+                            <th style="width: 30%">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for issue in bugs_in_project %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
+                                <a>
+                                    {{issue.summary|truncatechars:50}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                   <i class="fas fa-exclamation-circle" style="color: red"></i> {{issue.issue_type}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    <span class="badge
+                              {% if issue.status == 'done' %}
+                                badge-success
+                              {% elif issue.status == 'in progress' %}
+                                badge-warning
+                              {% elif issue.status == 'to do' %}
+                                badge-primary
+                              {% elif issue.status == 'cancel' %}
+                                badge-danger
+                              {% endif %}
+                            ">{{issue.status|upper}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    {{issue.assignee}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-primary btn-sm" href="#">
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="#">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+                                    Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="#">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- /.card-body -->
             </div>
-
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-
+            <!-- /.card -->
+            {% endif %}
         {% endif %}
     </section>
     <!-- /.content -->
