@@ -63,7 +63,7 @@ class Issue(models.Model):
     ]
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='issues', verbose_name=_('Project'))
-    issue_type = models.CharField(choices=ISSUE_TYPE_CHOICES, default='task', verbose_name=_('Issue type'),
+    type = models.CharField(choices=ISSUE_TYPE_CHOICES, default='task', verbose_name=_('Issue type'),
                                   max_length=5)
     status = models.CharField(choices=ISSUE_STATUS_CHOICES, default='to do', verbose_name=_('Issue status'),
                                     max_length=20)
