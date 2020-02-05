@@ -89,7 +89,7 @@
                           {% elif project.status == 'cancel' %}
                             badge-danger
                           {% endif %}
-                        ">{{project.status}}</span>
+                        ">{{project.status|upper}}</span>
                       </td>
                       <td class="project-actions text-right">
                           <a class="btn btn-primary btn-sm" href="{% url 'issues:project-detail' slug=project.slug %}">
