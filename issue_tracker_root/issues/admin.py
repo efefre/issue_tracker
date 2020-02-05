@@ -6,7 +6,7 @@ from .models import Project, Issue, Comment, Attachment
 class IssueAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('project', 'issue_type', 'issue_status', 'priority', 'assignee', 'reporter',
+            'fields': ('project', 'type', 'status', 'priority', 'assignee', 'reporter',
                        'summary', 'description', 'environment')
         }),
     )

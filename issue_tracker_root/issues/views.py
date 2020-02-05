@@ -63,7 +63,7 @@ class ProjectDetailView(ListView):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
         context['issues_in_project'] = Issue.objects.filter(project__slug=slug).order_by('-created')
-        context['tasks_in_project'] = Issue.objects.filter(project__slug=slug, issue_type='task').order_by('-created')
-        context['bugs_in_project'] = Issue.objects.filter(project__slug=slug, issue_type='bug').order_by('-created')
+        context['tasks_in_project'] = Issue.objects.filter(project__slug=slug, type='task').order_by('-created')
+        context['bugs_in_project'] = Issue.objects.filter(project__slug=slug, type='bug').order_by('-created')
         context['project_detail'] = Project.objects.get(slug=slug)
         return context
