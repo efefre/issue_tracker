@@ -85,7 +85,7 @@ class Issue(models.Model):
     def create_slug(self):
         project_slug = str(self.project.slug).upper()
         count_issue_in_project = Issue.objects.filter(project=self.project).count()
-        issue_slug = f'{project_slug}{count_issue_in_project+1}'
+        issue_slug = f'{project_slug}-{count_issue_in_project+1}'
         return issue_slug
 
     def save(self, *args, **kwargs):
