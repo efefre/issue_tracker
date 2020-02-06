@@ -14,7 +14,17 @@
                 <div class="col-sm-6">
                     <h1>Project detail: <strong>{{project_detail.name}}</strong></h1>
                     <small><strong>Short name: </strong>{{project_detail.slug|upper}} |
-                            <strong>Status: </strong>{{project_detail.status}}</small>
+                            <strong>Status: </strong>
+                            <span class="badge
+                              {% if project_detail.status == 'success' %}
+                                badge-success
+                              {% elif project_detail.status == 'in progress' %}
+                                badge-primary
+                              {% elif project_detail.status == 'cancel' %}
+                                badge-danger
+                              {% endif %}
+                            ">{{project_detail.status|upper}}</span>
+                    </small>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
