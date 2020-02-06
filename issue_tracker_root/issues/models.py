@@ -76,7 +76,7 @@ class Issue(models.Model):
                                  verbose_name=_('Reporter'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
-    summary = models.TextField(verbose_name=_('Summary'), max_length=250)
+    summary = models.TextField(verbose_name=_('Summary'), max_length=50)
     description = models.TextField(verbose_name=_('Description'))
     environment = models.CharField(choices=ENVIRONMENT_CHOICES, default='local', verbose_name=_('Environment'),
                                 max_length=100)
