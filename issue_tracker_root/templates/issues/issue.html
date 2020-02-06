@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{issue_detail.summary|truncatechars:20}}</h1>
+                    <h1>{{issue_detail.summary|truncatechars:50}}</h1>
                     <small>Project: {{issue_detail.project.name}}</small>
                 </div>
                 <div class="col-sm-6">
@@ -64,12 +64,26 @@
                         <p><strong>Description: </strong>{{issue_detail.description}}</p>
                     </div>
                     <div class="col-md-4 offset-md-1">
-                        <p><strong>Assignee: </strong>{{issue_detail.assignee}}</p>
-                        <p><strong>Reporter: </strong>{{issue_detail.reporter}}</p>
+                        <p><strong>Assignee: </strong><img src="/media/{{issue_detail.assignee.profile_img}}" class="img-circle elevation-1" style="width: 20px;"> {{issue_detail.assignee}}</p>
+                        <p><strong>Reporter: </strong><img src="/media/{{issue_detail.reporter.profile_img}}" class="img-circle elevation-1" style="width: 20px;"> {{issue_detail.reporter}}</p>
                         <p><strong>Created: </strong>{{issue_detail.created}}</p>
                         <p><strong>Updated: </strong>{{issue_detail.updated}}</p>
                     </div>
                 </div>
+                {% if issue_detail.comments.all %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                        <p><strong>Comments</strong></p>
+                        {% for comment in issue_detail.comments.all %}
+                        <div class="callout callout-info">
+                            <h5><strong>{{comment.author}}</strong> added a comment - {{comment.created}}</h5>
+                            <p>{{comment.comment_text}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
             </div>
             <!-- /.card-body -->
         </div>
