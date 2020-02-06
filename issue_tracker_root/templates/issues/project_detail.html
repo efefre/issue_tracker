@@ -71,7 +71,10 @@
                             <th class="text-center">
                                 Status
                             </th>
-                            <th style="width: 30%" class="text-center">
+                            <th class="text-center">
+                                Priority
+                            </th>
+                            <th style="width: 25%" class="text-center">
                                 Assignee
                             </th>
                             <th style="width: 10%">
@@ -109,6 +112,20 @@
                                 badge-danger
                               {% endif %}
                             ">{{issue.status|upper}}</span>
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    {% if issue.priority == 'low' %}
+                                        <i class="fas fa-long-arrow-alt-up"></i>
+                                    {% elif issue.priority == 'medium' %}
+                                        <i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-long-arrow-alt-up"></i>
+                                    {% elif issue.priority == 'high' %}
+                                        <i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-long-arrow-alt-up"></i>
+                                    {% else %}
+                                        {{issue.priority}}
+                                    {% endif %}
                                 </a>
                                 <br/>
                             </td>
@@ -163,7 +180,10 @@
                             <th class="text-center">
                                 Status
                             </th>
-                            <th style="width: 30%" class="text-center">
+                            <th class="text-center">
+                                Priority
+                            </th>
+                            <th style="width: 25%" class="text-center">
                                 Assignee
                             </th>
                             <th style="width: 10%">
@@ -201,6 +221,20 @@
                                 badge-danger
                               {% endif %}
                             ">{{issue.status|upper}}
+                                </a>
+                                <br/>
+                            </td>
+                            <td class="text-center">
+                                <a>
+                                    {% if issue.priority == 'low' %}
+                                        <i class="fas fa-long-arrow-alt-up"></i>
+                                    {% elif issue.priority == 'medium' %}
+                                        <i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-long-arrow-alt-up"></i>
+                                    {% elif issue.priority == 'high' %}
+                                        <i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-long-arrow-alt-up"></i><i class="fas fa-long-arrow-alt-up"></i>
+                                    {% else %}
+                                        {{issue.priority}}
+                                    {% endif %}
                                 </a>
                                 <br/>
                             </td>
