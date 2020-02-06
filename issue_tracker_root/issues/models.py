@@ -105,7 +105,7 @@ class Issue(models.Model):
 
 
 class Comment(models.Model):
-    comment_text = models.TextField(verbose_name=_('Comment'))
+    text = models.TextField(verbose_name=_('Comment'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Author'))
