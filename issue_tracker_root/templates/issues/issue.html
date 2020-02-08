@@ -77,8 +77,12 @@
                         <p><strong>Comments</strong></p>
                         {% for comment in issue_detail.comments.all %}
                         <div class="callout callout-info">
-                            <h5><strong>{{comment.author}}</strong> added a comment - {{comment.created}}</h5>
-                            <p>{{comment.comment_text}}</p>
+                            <h5><strong>{{comment.author}}</strong> added a comment - {{comment.created}}
+                                {% if comment.updated|date:"d-m-Y H:i:s" > comment.created|date:"d-m-Y H:i:s" %}
+                                    <sup style="color: red;">edited</sup>
+                                {% endif %}
+                            </h5>
+                            <p>{{comment.text}}</p>
                         </div>
                         {% endfor %}
                     </div>
