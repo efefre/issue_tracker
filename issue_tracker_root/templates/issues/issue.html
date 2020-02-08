@@ -70,11 +70,12 @@
                         <p><strong>Updated: </strong>{{issue_detail.updated}}</p>
                     </div>
                 </div>
-                {% if issue_detail.comments.all %}
+
                 <div class="row">
                     <div class="col-md-12">
                         <hr>
-                        <p><strong>Comments</strong></p>
+                        <h2 style="font-size: 1.6rem">Comments <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-plus"></i> Add comment</a></h2>
+                        {% if issue_detail.comments.all %}
                         {% for comment in issue_detail.comments.all %}
                         <div class="callout callout-info">
                             <h5><strong>{{comment.author}}</strong> added a comment - {{comment.created}}
