@@ -78,8 +78,8 @@ class Issue(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
     summary = models.TextField(verbose_name=_('Summary'), max_length=50)
     description = models.TextField(verbose_name=_('Description'))
-    environment = models.CharField(choices=ENVIRONMENT_CHOICES, default='local', verbose_name=_('Environment'),
-                                max_length=100)
+    environment = models.CharField(choices=ENVIRONMENT_CHOICES, verbose_name=_('Environment'),
+                                max_length=100, blank=True)
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
 
     def create_slug(self):
