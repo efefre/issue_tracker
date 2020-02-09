@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Project detail: <strong>{{project_detail.name}}</strong></h1>
+                    <h1>Project detail: <strong>{{project_detail.name}}</strong> <a class="btn btn-primary btn-sm" href="{% url 'issues:add-issue' slug=project_detail.slug %}"><i class="fas fa-plus"></i> Add issue</a></h1>
                     <small><strong>Short name: </strong>{{project_detail.slug|upper}} |
                             <strong>Status: </strong>
                             <span class="badge
@@ -29,7 +29,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
                         <li class="breadcrumb-item active">{{project_detail.name}}</li>
                     </ol>
                 </div>
