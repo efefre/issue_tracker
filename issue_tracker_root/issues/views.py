@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
 
-from .forms import AddProjectForm, UpdateProjectForm
+from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm
 from .models import Issue, Project
 
 
@@ -78,3 +79,24 @@ class IssueDetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['issue_detail'] = Issue.objects.get(slug=self.kwargs['slug'])
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class AddIssueView(FormView):
+    template_name = 'issues/add_issue.html'
+    form_class = AddIssueForm
+    success_url = '/projects'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = Project.objects.get(slug=self.kwargs.get('slug'))
+        return context
+
+
+    def form_valid(self, form):
+        form =form.save(commit=False)
+        form.reporter = self.request.user
+        context = self.get_context_data()
+        form.project = context['project']
+        form.save()
+        return redirect(f'/project/{self.kwargs.get("slug")}')
