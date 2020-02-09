@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Project detail: <strong>{{project_detail.name}}</strong></h1>
+                    <h1>Project detail: <strong>{{project_detail.name}}</strong> <a class="btn btn-primary btn-sm" href="{% url 'issues:add-issue' slug=project_detail.slug %}"><i class="fas fa-plus"></i> Add issue</a></h1>
                     <small><strong>Short name: </strong>{{project_detail.slug|upper}} |
                             <strong>Status: </strong>
                             <span class="badge
