@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
 
-from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm
+from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm
 from .models import Issue, Project
 
 
@@ -100,3 +100,10 @@ class AddIssueView(FormView):
         form.project = context['project']
         form.save()
         return redirect(f'/project/{self.kwargs.get("slug")}')
+
+
+@method_decorator(login_required, name='dispatch')
+class EditIssueView(UpdateView):
+    model = Issue
+    template_name = 'issues/edit_issue.html'
+    form_class = EditIssueForm
