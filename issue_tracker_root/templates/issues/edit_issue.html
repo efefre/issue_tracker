@@ -22,7 +22,7 @@
                             <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
                             <li class="breadcrumb-item"><a
-                                    href="#">{{issue.project.name}}</a>
+                                    href="{% url 'issues:project-detail' slug=issue.project.slug %}">{{issue.project.name}}</a>
                             </li>
                             <li class="breadcrumb-item active">{{issue.slug}}</li>
                         </ol>
