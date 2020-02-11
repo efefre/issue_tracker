@@ -45,8 +45,8 @@ class Issue(models.Model):
     ISSUE_STATUS_CHOICES = [
         ('to do', 'To do'),
         ('in progress', 'In progress'),
-        ('done', 'done'),
-        ('cancel', 'cancel')
+        ('done', 'Done'),
+        ('cancel', 'Cancel')
     ]
 
     PRIORITY_CHOICES = [
