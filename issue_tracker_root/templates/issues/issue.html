@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{issue_detail.summary|truncatechars:50}}</h1>
+                    <h1>{{issue_detail.summary|truncatechars:50}} <a class="btn btn-primary btn-sm" href="{% url 'issues:edit-issue' slug=issue_detail.slug %}"><i class="fas fa-pencil-alt"></i> Edit</a></h1>
                     <small>Project: {{issue_detail.project.name}}</small>
                 </div>
                 <div class="col-sm-6">
