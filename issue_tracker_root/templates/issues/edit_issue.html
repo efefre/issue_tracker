@@ -1,0 +1,83 @@
+{% extends "issues/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans issue.slug %}{% endblock %}
+{% block body_class %}sidebar-mini{% endblock body_class %}
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <form method="post">
+        {% csrf_token %}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <label for="id_surname">Summary</label>
+                        <h1>{{form.summary}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="#">{{issue.project.name}}</a>
+                            </li>
+                            <li class="breadcrumb-item active">{{issue.slug}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p>
+                                <label for="id_type">Type:</label>
+                                {{form.type}}
+                            </p>
+                            <p>
+                                <label for="id_status">Status:</label>
+                                {{form.status}}
+                            </p>
+                            <p>
+                                <label for="id_priority">Priority:</label>
+                                {{form.priority}}
+                            </p>
+                            <p>
+                                <label for="id_environment">Environment:</label>
+                                {{form.environment}}</p>
+                            <p>
+                                <label for="id_description">Description:</label>
+                                {{form.description}}
+                            </p>
+                        </div>
+                        <div class="col-md-4 offset-md-1">
+                            <p>
+                                <label for="id_assignee">Assignee:</label>
+                                {{form.assignee}}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'issues:issue-detail' slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </section>
+        <!-- /.content -->
+    </form>
+</div>
+<!-- /.content-wrapper -->
+
+{% endblock content %}
