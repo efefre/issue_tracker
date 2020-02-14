@@ -78,7 +78,7 @@
                            <div class="row">
                                {% for attachment in issue.attachments.all %}
                                    <div class="col-2">
-                                       <img src="/media/{{attachment.file}}" class="img-fluid"/>
+                                       <img src="/media/{{attachment.file}}" class="img-fluid img-thumbnail"/>
                                         <small style="margin-top: 10px;">
                                             <br>Added: <b>{{attachment.added}}</b>
                                         </small>
