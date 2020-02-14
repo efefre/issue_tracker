@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
 
-from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm
+from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset
 from .models import Issue, Project
 
 
@@ -82,24 +81,35 @@ class IssueDetailView(TemplateView):
 
 
 @method_decorator(login_required, name='dispatch')
-class AddIssueView(FormView):
+class AddIssueView(CreateView):
     template_name = 'issues/add_issue.html'
     form_class = AddIssueForm
-    success_url = '/projects'
+    model = Issue
+
+    def get_success_url(self):
+        return f'/project/{self.kwargs.get("slug")}'
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['project'] = Project.objects.get(slug=self.kwargs.get('slug'))
+        context['attachment'] = AttachmentFormset()
         return context
 
 
     def form_valid(self, form):
+        context = self.get_context_data()
         form =form.save(commit=False)
         form.reporter = self.request.user
-        context = self.get_context_data()
         form.project = context['project']
         form.save()
-        return redirect(f'/project/{self.kwargs.get("slug")}')
+
+        formset = AttachmentFormset(self.request.POST, self.request.FILES, instance=form, prefix='attachments')
+
+        if formset.is_valid():
+            formset.save()
+
+        return super().form_valid(form)
 
 
 @method_decorator(login_required, name='dispatch')

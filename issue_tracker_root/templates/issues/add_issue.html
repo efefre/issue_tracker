@@ -41,7 +41,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="post">
+                        <form method="post" enctype= multipart/form-data>
                             {% csrf_token %}
                             <!-- card-body -->
                             <div class="card-body">
@@ -75,11 +75,17 @@
                                             {{form.assignee}}
                                         </div>
 
-
                                         <div class="form-group">
                                             <label for="id_environment">Environment</label>
                                             {{form.environment}}
                                         </div>
+                                        {{ attachment.management_form }}
+                                        <p><b>Attachments</b></p>
+                                        {% for form in attachment.forms %}
+                                            <div class="form-group">
+                                                {{form.file}}
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
 
