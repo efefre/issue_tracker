@@ -65,7 +65,23 @@
                             </p>
                         </div>
                     </div>
-
+                    <div class="row">
+                        {% if issue.attachments.all %}
+                        <h2 style="font-size: 1.6rem"><b>Attachments</b></h2>
+                           <div class="row">
+                               {% for attachment in issue.attachments.all %}
+                                   <div class="col-2">
+                                       <img src="/media/{{attachment.file}}" class="img-fluid"/>
+                                        <small style="margin-top: 10px;">
+                                            <br>Added: <b>{{attachment.added}}</b>
+                                        </small>
+                                            <a href="{% url 'issues:delete-attachment' pk=attachment.pk %}" class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash"></i></a>
+                                   </div>
+                               {% endfor %}
+                           </div>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="card-footer">
                     <a href="{% url 'issues:issue-detail' slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
