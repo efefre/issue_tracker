@@ -1,5 +1,6 @@
 from django import forms
 from .models import Project, Issue, Attachment
+from django.forms.models import inlineformset_factory
 
 
 class AddProjectForm(forms.ModelForm):
@@ -71,3 +72,8 @@ class AddAttachmentForm(forms.ModelForm):
     class Meta:
         model = Attachment
         exclude = ()
+
+
+AttachmentFormset = inlineformset_factory(Issue, Attachment,
+                                          form = AddAttachmentForm,
+                                          fields= ['file',], extra=1, can_delete=True)
