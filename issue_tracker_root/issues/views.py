@@ -126,14 +126,11 @@ class EditIssueView(UpdateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        form =form.save(commit=False)
-        form.reporter = self.request.user
-        form.project = context['project']
-        form.save()
-
-        formset = AttachmentFormset(self.request.POST, self.request.FILES, instance=form, prefix='attachments')
+        formset = AttachmentFormset(self.request.POST, self.request.FILES,  prefix='attachments')
 
         if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
             formset.save()
 
         return super().form_valid(form)
