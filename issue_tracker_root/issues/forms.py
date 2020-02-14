@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Issue
+from .models import Project, Issue, Attachment
 
 
 class AddProjectForm(forms.ModelForm):
@@ -64,3 +64,10 @@ class EditIssueForm(forms.ModelForm):
                    'assignee': forms.Select(attrs={'class': 'form-control'}),
                    'environment': forms.Select(attrs={'class': 'form-control'})
                    }
+
+
+class AddAttachmentForm(forms.ModelForm):
+
+    class Meta:
+        model = Attachment
+        exclude = ()
