@@ -85,10 +85,16 @@
                         <h2 style="font-size: 1.6rem">Attachments</h2>
                         <div class="row">
                             {% for attachment in issue_detail.attachments.all %}
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 text-center">
+                                {% if 'pdf' in attachment.get_type %}
+                                <a href="/media/{{attachment.file}}" target="_blank">
+                                  <button class="btn btn-outline-dark"><i class="far fa-file-pdf"></i> File: pdf</button>
+                                </a>
+                                {% else %}
                                 <a href="/media/{{attachment.file}}" data-toggle="lightbox" data-title="Added: {{attachment.added}}" data-gallery="gallery">
                                   <img src="/media/{{attachment.file}}" class="img-fluid mb-2 img-thumbnail" />
                                 </a>
+                                {% endif %}
                             </div>
                         {% endfor %}
                         </div>
