@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Issue, Attachment
+from .models import Project, Issue, Attachment, Comment
 from django.forms.models import inlineformset_factory
 
 
@@ -77,3 +77,13 @@ class AddAttachmentForm(forms.ModelForm):
 AttachmentFormset = inlineformset_factory(Issue, Attachment,
                                           form = AddAttachmentForm,
                                           fields= ['file',], extra=1, can_delete=True)
+
+
+class AddCommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('text',)
+
+        widgets = {'text': forms.Textarea(attrs={'class': 'form-control',
+                                                 'placeholder': 'Your comment...'})}
