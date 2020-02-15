@@ -15,3 +15,5 @@ admin.site.register(Project)
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Comment)
 admin.site.register(Attachment)
+
+# osobiście wolę nieco bardziej dopracowany panel administracyjny ;)

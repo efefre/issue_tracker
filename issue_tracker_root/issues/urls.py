@@ -6,14 +6,14 @@ from .views import DashboardView, ProjectsListView, AddProjectView, UpdateProjec
 
 app_name = 'issues'
 
-urlpatterns = [
+urlpatterns = [  # bardzo chaotyczna struktura
     path('', DashboardView.as_view(), name='dashboard'),
     path('projects/', ProjectsListView.as_view(), name='projects-list'),
     path('add-project', AddProjectView.as_view(), name="add-project"),
     path('update-project/<int:pk>', UpdateProjectView.as_view(), name='update-project'),
     path('delete-project/<int:pk>', DeleteProjectView.as_view(), name='delete-project'),
-    path('project/<slug:slug>', ProjectDetailView.as_view(), name='project-detail'),
-    path('<slug:slug>/', IssueDetailView.as_view(), name='issue-detail'),
+    path('project/<slug:slug>', ProjectDetailView.as_view(), name='project-detail'),  # wcześniej było `projects/` - to nie pasuje
+    path('<slug:slug>/', IssueDetailView.as_view(), name='issue-detail'),   # co, jeśli ktoś jako slug da "projects" lub inny z użytych słów?
     path('project/<slug:slug>/add', AddIssueView.as_view(), name='add-issue'),
     path('<slug:slug>/edit', EditIssueView.as_view(), name='edit-issue'),
     path('delete-attachment/<int:pk>/', DeleteAttachmentView.as_view(), name='delete-attachment'),
@@ -21,3 +21,5 @@ urlpatterns = [
     path('edit-comment/<int:pk>', EditCommentView.as_view(), name='edit-comment'),
     path('delete-comment/<int:pk>', DeleteCommentView.as_view(), name='delete-comment')
 ]
+
+# straszny chaos w URLach, spróbuj to uporządkować

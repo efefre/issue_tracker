@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-
 # Create your views here.
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -44,7 +43,7 @@ class UpdateProjectView(UpdateView):
     form_class = UpdateProjectForm
 
     def get_success_url(self):
-        return reverse('issues:projects-list')
+        return reverse('issues:projects-list')  # dobrze!
 
 
 @method_decorator(login_required, name='dispatch')
@@ -63,6 +62,7 @@ class ProjectDetailView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
+        # spróbuj ustalić, ile kwerend wywołują nastepne trzy linijki i zastanów się, czy nie dałoby się tego jakoś ulepszyć
         context['issues_in_project'] = Issue.objects.filter(project__slug=slug).order_by('-created')
         context['tasks_in_project'] = Issue.objects.filter(project__slug=slug, type='task').order_by('-created')
         context['bugs_in_project'] = Issue.objects.filter(project__slug=slug, type='bug').order_by('-created')
@@ -88,8 +88,7 @@ class AddIssueView(CreateView):
     model = Issue
 
     def get_success_url(self):
-        return f'/project/{self.kwargs.get("slug")}'
-
+        return f'/project/{self.kwargs.get("slug")}'  # nope, zawsze używaj reverse() - w ten sposób poprawki w urls.py nie wpłyną na to miejsce
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,10 +96,9 @@ class AddIssueView(CreateView):
         context['attachment'] = AttachmentFormset()
         return context
 
-
     def form_valid(self, form):
         context = self.get_context_data()
-        form =form.save(commit=False)
+        form = form.save(commit=False)
         form.reporter = self.request.user
         form.project = context['project']
         form.save()
@@ -124,10 +122,9 @@ class EditIssueView(UpdateView):
         context['attachment'] = AttachmentFormset()
         return context
 
-
     def form_valid(self, form):
-        context = self.get_context_data()
-        formset = AttachmentFormset(self.request.POST, self.request.FILES,  prefix='attachments')
+        context = self.get_context_data()  # nie jest później używane
+        formset = AttachmentFormset(self.request.POST, self.request.FILES, prefix='attachments')
 
         if formset.is_valid():
             self.object = form.save()
@@ -144,9 +141,9 @@ class DeleteAttachmentView(DeleteView):
     context_object_name = 'delete_attachment'
 
     def get_success_url(self):
-        issue = Issue.objects.get(attachments__pk = self.kwargs.get('pk'))
+        issue = Issue.objects.get(attachments__pk=self.kwargs.get('pk'))
         issue_slug = issue.slug
-        return f'/{issue_slug}/edit'
+        return f'/{issue_slug}/edit'  # nope!
 
 
 @method_decorator(login_required, name='dispatch')
@@ -158,11 +155,11 @@ class AddCommentView(CreateView):
     def get_success_url(self):
         issue = Issue.objects.get(slug=self.kwargs.get('slug'))
         issue_slug = issue.slug
-        return f'/{issue_slug}'
+        return f'/{issue_slug}'  # nope!
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['issue'] = Issue.objects.get(slug = self.kwargs.get('slug'))
+        context['issue'] = Issue.objects.get(slug=self.kwargs.get('slug'))
         context['author'] = self.request.user
         return context
 
@@ -182,9 +179,9 @@ class EditCommentView(UpdateView):
     form_class = EditCommentForm
 
     def get_success_url(self):
-        issue = Issue.objects.get(comments__pk = self.kwargs.get('pk'))
+        issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
         issue_slug = issue.slug
-        return f'/{issue_slug}'
+        return f'/{issue_slug}'  # nope!
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -200,4 +197,4 @@ class DeleteCommentView(DeleteView):
     def get_success_url(self):
         issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
         issue_slug = issue.slug
-        return f'/{issue_slug}'
+        return f'/{issue_slug}'  # nope!

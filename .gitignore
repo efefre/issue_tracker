@@ -121,3 +121,6 @@ dmypy.json
 
 # Directory for uploads
 uploads/
+
+# IDE settings
+/.idea
