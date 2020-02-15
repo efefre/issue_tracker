@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import DashboardView, ProjectsListView, AddProjectView, UpdateProjectView, DeleteProjectView, \
     ProjectDetailView, IssueDetailView, AddIssueView, EditIssueView, DeleteAttachmentView, AddCommentView, \
-    EditCommentView
+    EditCommentView, DeleteCommentView
 
 app_name = 'issues'
 
@@ -18,5 +18,6 @@ urlpatterns = [
     path('<slug:slug>/edit', EditIssueView.as_view(), name='edit-issue'),
     path('delete-attachment/<int:pk>/', DeleteAttachmentView.as_view(), name='delete-attachment'),
     path('<slug:slug>/add-comment', AddCommentView.as_view(), name='add-comment'),
-    path('edit-comment/<int:pk>', EditCommentView.as_view(), name='edit-comment')
+    path('edit-comment/<int:pk>', EditCommentView.as_view(), name='edit-comment'),
+    path('delete-comment/<int:pk>', DeleteCommentView.as_view(), name='delete-comment')
 ]
