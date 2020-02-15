@@ -189,3 +189,15 @@ class EditCommentView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteCommentView(DeleteView):
+    model = Comment
+    template_name = 'issues/confirm_delete_comment.html'
+    context_object_name = 'delete_comment'
+
+    def get_success_url(self):
+        issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
+        issue_slug = issue.slug
+        return f'/{issue_slug}'
