@@ -123,8 +123,11 @@
                                 {% if comment.updated|date:"d-m-Y H:i:s" > comment.created|date:"d-m-Y H:i:s" %}
                                 <sup style="color: red;">edited</sup>
                                 {% endif %}
-                            </h6>
+                                <a class="btn-sm" href="{% url 'issues:edit-comment' pk=comment.pk %}">
+                                    <i class="fas fa-pencil-alt"></i></a>
                             <p>{{comment.text}}</p>
+                            </h6>
+
                         </div>
                         {% endfor %}
                         {% endif %}
