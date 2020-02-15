@@ -41,6 +41,16 @@
               <i class="nav-icon fas fa-tachometer-alt"></i><p>Home</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#"
+               {% if request.path == '#' %}
+                  class="nav-link active">
+                {% else %}
+                  class="nav-link">
+                {% endif %}
+              <i class="nav-icon fas fa-user-check"></i><p>Assigned to Me</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview menu-open">
             <a href="{% url 'issues:projects-list' %}" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
