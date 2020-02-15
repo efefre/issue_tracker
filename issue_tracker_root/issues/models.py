@@ -129,6 +129,10 @@ class Attachment(models.Model):
     def get_type(self):
         if '.pdf' in str(self.file):
             return 'pdf'
+        elif '.xls' in str(self.file) or '.xlsx' in str(self.file):
+            return 'excel'
+        elif '.doc' in str(self.file) or '.docx' in str(self.file):
+            return 'doc'
         else:
             return 'image'
 

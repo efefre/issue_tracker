@@ -77,14 +77,18 @@
                         <h2 style="font-size: 1.6rem"><b>Attachments</b></h2>
                            <div class="row">
                                {% for attachment in issue.attachments.all %}
-                                   <div class="col-2 text-center">
+                                   <div class="col-2 text-center mb-4">
                                        {% if 'pdf' in attachment.get_type %}
                                             <span class="btn btn-outline-dark active"><i class="far fa-file-pdf"></i> File: pdf</span>
+                                       {% elif 'doc' in attachment.get_type %}
+                                          <span class="btn btn-outline-dark active"><i class="far fa-file-word"></i> File: doc</span>
+                                        {% elif 'excel' in attachment.get_type %}
+                                          <span class="btn btn-outline-dark active"><i class="far fa-file-excel"></i> File: excel</span>
                                        {% else %}
                                             <img src="/media/{{attachment.file}}" class="img-fluid img-thumbnail" />
                                        {% endif %}
                                         <small style="margin-top: 10px;">
-                                            <br>Added: <b>{{attachment.added}}</b>
+                                            <br>Added:<br><b>{{attachment.added}}</b><br/>
                                         </small>
                                             <a href="{% url 'issues:delete-attachment' pk=attachment.pk %}" class="btn btn-outline-danger btn-sm">
                                                 <i class="fas fa-trash"></i></a>
