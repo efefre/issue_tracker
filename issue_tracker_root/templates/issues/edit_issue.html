@@ -77,8 +77,12 @@
                         <h2 style="font-size: 1.6rem"><b>Attachments</b></h2>
                            <div class="row">
                                {% for attachment in issue.attachments.all %}
-                                   <div class="col-2">
-                                       <img src="/media/{{attachment.file}}" class="img-fluid img-thumbnail"/>
+                                   <div class="col-2 text-center">
+                                       {% if 'pdf' in attachment.get_type %}
+                                            <span class="btn btn-outline-dark active"><i class="far fa-file-pdf"></i> File: pdf</span>
+                                       {% else %}
+                                            <img src="/media/{{attachment.file}}" class="img-fluid img-thumbnail" />
+                                       {% endif %}
                                         <small style="margin-top: 10px;">
                                             <br>Added: <b>{{attachment.added}}</b>
                                         </small>
