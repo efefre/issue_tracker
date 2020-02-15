@@ -1,7 +1,7 @@
 {% extends "issues/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Projects" %}{% endblock %}
+{% block head_title %}{% trans "Assigned to Me" %}{% endblock %}
 {% block body_class %}sidebar-mini{% endblock body_class %}
 {% block content %}
 
@@ -12,12 +12,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Projects <a class="btn btn-primary btn-sm" href="{% url 'issues:add-project' %}"><i class="fas fa-plus"></i> Add</a></h1>
+            <h1>Assigned to Me</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
-              <li class="breadcrumb-item active">Projects</li>
+              <li class="breadcrumb-item">Assigned to Me</li>
             </ol>
           </div>
         </div>
@@ -26,13 +26,13 @@
 
     <!-- Main content -->
     <section class="content">
-    {% if not project_list %}
-        <p>There is no projects!</p>
+    {% if not my_issue %}
+        <p>There is no issue!</p>
     {% else %}
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Projects</h3>
+          <h3 class="card-title">Issues</h3>
         </div>
         <div class="card-body p-0">
           <table class="table table-striped projects">
@@ -41,71 +41,72 @@
                       <th style="width: 1%">
                           #
                       </th>
-                      <th style="width: 20%">
-                          Project Name
+                      <th style="width: 49%">
+                          Summary
                       </th>
-                      <th>
-                          Project Progress
+                      <th style="width:10%" class="text-center">
+                          Type
                       </th>
-                      <th style="width: 8%" class="text-center">
+                      <th class="text-center">
+                          Priority
+                      </th>
+                      <th class="text-center">
                           Status
                       </th>
-                      <th style="width: 30%">
+                      <th style="width: 15%" class="text-center">
+                          Reporter
+                      </th>
+                      <th style="width: 15%">
                       </th>
                   </tr>
               </thead>
               <tbody>
-              {% for project in project_list %}
+              {% for issue in my_issue %}
                   <tr>
                       <td>
                           {{ forloop.counter }}
                       </td>
                       <td>
                           <a>
-                              {{project.name}}
+                              {{issue.summary}}
                           </a>
                           <br/>
                           <small>
-                              Created: {{project.created}}
+                              Created: {{issue.created}}
                           </small>
                       </td>
-                      <td class="project_progress">
-                          <small>All issues: {{project.issues.all|length}} | Done: {{project.done_issues_in_project}}</small>
-                          <div class="progress progress-sm">
-                              {% widthratio project.done_issues_in_project project.issues.all|length 100 as ratio %}
-                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="{{project.done_issues_in_project}}" aria-volumemin="0" aria-volumemax="{{project.issues.all|length}}" style="width:{{ratio}}%">
-                              </div>
-                          </div>
-                          <small>
-                              {{ratio}}% Complete
-                          </small>
+                      <td class="text-center">
+                          {% if issue.type == 'bug' %}
+                            <i class="fas fa-exclamation-circle" style="color: red"></i>
+                            {% elif issue.type == 'task' %}
+                            <i class="fas fa-check-square" style="color:#007bff"></i>
+                            {% endif %}
+                            {{issue.type}}
                       </td>
-                      <td class="project-state">
+                      <td class="text-center">
+                          {{issue.priority}}
+                      </td>
+                      <td class="project-state text-center">
                           <span class="badge
-                          {% if project.status == 'success' %}
+                          {% if issue.status == 'done' %}
                             badge-success
-                          {% elif project.status == 'in progress' %}
+                          {% elif issue.status == 'in progress' %}
+                            badge-warning
+                          {% elif issue.status == 'to do' %}
                             badge-primary
-                          {% elif project.status == 'cancel' %}
+                           {% elif issue.status == 'cancel' %}
                             badge-danger
                           {% endif %}
-                        ">{{project.status|upper}}</span>
+                        ">{{issue.status|upper}}</span>
                       </td>
-                      <td class="project-actions text-right">
-                          <a class="btn btn-primary btn-sm" href="{% url 'issues:project-detail' slug=project.slug %}">
+                      <td class="text-center">
+                          {{issue.reporter}}
+                      </td>
+                      <td class="text-center">
+                          <a class="btn btn-primary btn-sm" href="{% url 'issues:project-detail' slug=issue.project.slug %}">
                               <i class="fas fa-folder">
                               </i>
                               View
-                          </a>
-                          <a class="btn btn-info btn-sm" href="{% url 'issues:update-project' pk=project.pk %}">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="{% url 'issues:delete-project' pk=project.pk %}">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
                           </a>
                       </td>
                   </tr>
