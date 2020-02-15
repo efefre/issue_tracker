@@ -50,6 +50,18 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="{% url 'issues:projects-list' %}"
+                     {% if request.path == '/projects/' %}
+                      class="nav-link active">
+                    {% else %}
+                      class="nav-link">
+                    {% endif %}
+                    <i class="nav-icon fas fa-clipboard-list"></i>
+                    <p>All projects</p>
+                  </a>
+                </li>
+
               {% projects_list as projects %}
 
               {% for project in projects %}
