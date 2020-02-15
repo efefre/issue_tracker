@@ -201,3 +201,14 @@ class DeleteCommentView(DeleteView):
         issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
         issue_slug = issue.slug
         return f'/{issue_slug}'
+
+
+@method_decorator(login_required, name='dispatch')
+class AssignedToMeView(ListView):
+    model = Issue
+    template_name = 'issues/my_issue.html'
+    context_object_name = 'my_issue'
+
+    def get_queryset(self):
+        query = Issue.objects.filter(assignee=self.request.user)
+        return query

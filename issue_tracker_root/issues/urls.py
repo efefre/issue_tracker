@@ -2,12 +2,13 @@ from django.urls import path
 
 from .views import DashboardView, ProjectsListView, AddProjectView, UpdateProjectView, DeleteProjectView, \
     ProjectDetailView, IssueDetailView, AddIssueView, EditIssueView, DeleteAttachmentView, AddCommentView, \
-    EditCommentView, DeleteCommentView
+    EditCommentView, DeleteCommentView, AssignedToMeView
 
 app_name = 'issues'
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),
+    path('my-issues/', AssignedToMeView.as_view(), name='my-issues'),
     path('projects/', ProjectsListView.as_view(), name='projects-list'),
     path('add-project', AddProjectView.as_view(), name="add-project"),
     path('update-project/<int:pk>', UpdateProjectView.as_view(), name='update-project'),

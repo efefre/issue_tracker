@@ -1,0 +1,126 @@
+{% extends "issues/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Assigned to Me" %}{% endblock %}
+{% block body_class %}sidebar-mini{% endblock body_class %}
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Assigned to Me</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item">Assigned to Me</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+    {% if not my_issue %}
+        <p>There is no issue!</p>
+    {% else %}
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Issues</h3>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <th style="width: 1%">
+                          #
+                      </th>
+                      <th style="width: 49%">
+                          Summary
+                      </th>
+                      <th style="width:10%" class="text-center">
+                          Type
+                      </th>
+                      <th class="text-center">
+                          Priority
+                      </th>
+                      <th class="text-center">
+                          Status
+                      </th>
+                      <th style="width: 15%" class="text-center">
+                          Reporter
+                      </th>
+                      <th style="width: 15%">
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for issue in my_issue %}
+                  <tr>
+                      <td>
+                          {{ forloop.counter }}
+                      </td>
+                      <td>
+                          <a>
+                              {{issue.summary}}
+                          </a>
+                          <br/>
+                          <small>
+                              Created: {{issue.created}}
+                          </small>
+                      </td>
+                      <td class="text-center">
+                          {% if issue.type == 'bug' %}
+                            <i class="fas fa-exclamation-circle" style="color: red"></i>
+                            {% elif issue.type == 'task' %}
+                            <i class="fas fa-check-square" style="color:#007bff"></i>
+                            {% endif %}
+                            {{issue.type}}
+                      </td>
+                      <td class="text-center">
+                          {{issue.priority}}
+                      </td>
+                      <td class="project-state text-center">
+                          <span class="badge
+                          {% if issue.status == 'done' %}
+                            badge-success
+                          {% elif issue.status == 'in progress' %}
+                            badge-warning
+                          {% elif issue.status == 'to do' %}
+                            badge-primary
+                           {% elif issue.status == 'cancel' %}
+                            badge-danger
+                          {% endif %}
+                        ">{{issue.status|upper}}</span>
+                      </td>
+                      <td class="text-center">
+                          {{issue.reporter}}
+                      </td>
+                      <td class="text-center">
+                          <a class="btn btn-primary btn-sm" href="{% url 'issues:project-detail' slug=issue.project.slug %}">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                          </a>
+                      </td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    {% endif %}
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+{% endblock content %}
