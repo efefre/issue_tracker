@@ -38,7 +38,7 @@ class AddProjectView(FormView):
 
 
 @method_decorator(login_required, name='dispatch')
-class UpdateProjectView(UpdateView):
+class EditProjectView(UpdateView):
     model = Project
     template_name = 'issues/update_project.html'
     form_class = UpdateProjectForm
