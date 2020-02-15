@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
 
-from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset
-from .models import Issue, Project, Attachment
+from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm
+from .models import Issue, Project, Attachment, Comment
 
 
 @method_decorator(login_required, name='dispatch')
@@ -146,3 +146,29 @@ class DeleteAttachmentView(DeleteView):
         issue = Issue.objects.get(attachments__pk = self.kwargs.get('pk'))
         issue_slug = issue.slug
         return f'/{issue_slug}/edit'
+
+
+@method_decorator(login_required, name='dispatch')
+class AddCommentView(CreateView):
+    template_name = 'issues/add_comment.html'
+    form_class = AddCommentForm
+    model = Comment
+
+    def get_success_url(self):
+        issue = Issue.objects.get(slug=self.kwargs.get('slug'))
+        issue_slug = issue.slug
+        return f'/{issue_slug}'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['issue'] = Issue.objects.get(slug = self.kwargs.get('slug'))
+        context['author'] = self.request.user
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        form = form.save(commit=False)
+        form.author = self.request.user
+        form.issue = context['issue']
+        form.save()
+        return super().form_valid(form)
