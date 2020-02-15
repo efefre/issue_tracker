@@ -5,4 +5,4 @@ register = template.Library()
 
 @register.simple_tag
 def projects_list():
-    return Project.objects.all().order_by('created')
+    return Project.objects.all().order_by('-created')
