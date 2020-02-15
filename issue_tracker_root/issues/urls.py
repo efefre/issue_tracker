@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import DashboardView, ProjectsListView, AddProjectView, UpdateProjectView, DeleteProjectView, \
-    ProjectDetailView, IssueDetailView, AddIssueView, EditIssueView
+    ProjectDetailView, IssueDetailView, AddIssueView, EditIssueView, DeleteAttachmentView
 
 app_name = 'issues'
 
@@ -14,5 +14,6 @@ urlpatterns = [
     path('project/<slug:slug>', ProjectDetailView.as_view(), name='project-detail'),
     path('<slug:slug>/', IssueDetailView.as_view(), name='issue-detail'),
     path('project/<slug:slug>/add', AddIssueView.as_view(), name='add-issue'),
-    path('<slug:slug>/edit', EditIssueView.as_view(), name='edit-issue')
+    path('<slug:slug>/edit', EditIssueView.as_view(), name='edit-issue'),
+    path('delete-attachment/<int:pk>/', DeleteAttachmentView.as_view(), name='delete-attachment')
 ]

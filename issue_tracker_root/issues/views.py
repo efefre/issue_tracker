@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
 
 from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset
-from .models import Issue, Project
+from .models import Issue, Project, Attachment
 
 
 @method_decorator(login_required, name='dispatch')
@@ -117,3 +117,32 @@ class EditIssueView(UpdateView):
     model = Issue
     template_name = 'issues/edit_issue.html'
     form_class = EditIssueForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['attachment'] = AttachmentFormset()
+        return context
+
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = AttachmentFormset(self.request.POST, self.request.FILES,  prefix='attachments')
+
+        if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            formset.save()
+
+        return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteAttachmentView(DeleteView):
+    model = Attachment
+    template_name = 'issues/confirm_delete_attachment.html'
+    context_object_name = 'delete_attachment'
+
+    def get_success_url(self):
+        issue = Issue.objects.get(attachments__pk = self.kwargs.get('pk'))
+        issue_slug = issue.slug
+        return f'/{issue_slug}/edit'

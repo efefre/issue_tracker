@@ -126,5 +126,15 @@ class Attachment(models.Model):
     file = models.FileField(upload_to=get_attachment_path, verbose_name=_('File'))
     added = models.DateTimeField(auto_now_add=True, verbose_name=_('Added'))
 
+    def get_type(self):
+        if '.pdf' in str(self.file):
+            return 'pdf'
+        elif '.xls' in str(self.file) or '.xlsx' in str(self.file):
+            return 'excel'
+        elif '.doc' in str(self.file) or '.docx' in str(self.file):
+            return 'doc'
+        else:
+            return 'image'
+
     def __str__(self):
         return f'Attachment from issue {self.issue.summary} (id: {self.issue.id})'
