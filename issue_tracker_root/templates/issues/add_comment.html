@@ -1,7 +1,7 @@
 {% extends "issues/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Add project" %}{% endblock %}
+{% block head_title %}{% trans "Add comment" %}{% endblock %}
 {% block body_class %}sidebar-mini{% endblock body_class %}
 {% block content %}
 
@@ -12,13 +12,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Add project</h1>
+            <h1>Add comment to issue: <strong>{{issue.summary}} ({{issue.slug}})</strong></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
               <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-              <li class="breadcrumb-item active">Add project</li>
+              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=issue.slug %}">{{issue.slug}}: {{issue.summary}}</a></li>
+              <li class="breadcrumb-item active">Add comment</li>
             </ol>
           </div>
         </div>
@@ -36,7 +37,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Project detail</h3>
+                <h3 class="card-title">Comment detail</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -45,16 +46,8 @@
                   <!-- card-body -->
                   <div class="card-body">
                     <div class="form-group">
-                        <label for="id_name">Project name</label>
-                        {{ form.name }}
-                      </div>
-                        <div class="form-group">
-                        <label for="id_slug">Short name</label>
-                        {{ form.slug }}
-                      </div>
-                      <div class="form-group">
-                        <label for="id_status">Status</label>
-                        {{form.status}}
+                        <label for="id_text">Comment</label>
+                        {{ form.text }}
                       </div>
                   </div>
                 <!-- /.card-body -->
