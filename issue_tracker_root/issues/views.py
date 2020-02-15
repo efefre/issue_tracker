@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
 
-from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm
+from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm, \
+    EditCommentForm
 from .models import Issue, Project, Attachment, Comment
 
 
@@ -172,3 +173,19 @@ class AddCommentView(CreateView):
         form.issue = context['issue']
         form.save()
         return super().form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class EditCommentView(UpdateView):
+    model = Comment
+    template_name = 'issues/edit_comment.html'
+    form_class = EditCommentForm
+
+    def get_success_url(self):
+        issue = Issue.objects.get(comments__pk = self.kwargs.get('pk'))
+        issue_slug = issue.slug
+        return f'/{issue_slug}'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
