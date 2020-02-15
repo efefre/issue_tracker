@@ -42,8 +42,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#"
-               {% if request.path == '#' %}
+            <a href="{% url 'issues:my-issues' %}"
+               {% if request.path == '/my-issues/' %}
                   class="nav-link active">
                 {% else %}
                   class="nav-link">
