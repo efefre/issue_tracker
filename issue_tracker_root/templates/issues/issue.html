@@ -106,7 +106,6 @@
                             </div>
                         {% endfor %}
                         </div>
-
                         {% endif %}
                     </div>
                 </div>
@@ -114,7 +113,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <hr>
-                        <h2 style="font-size: 1.6rem">Comments <a class="btn btn-primary btn-sm" href="#"><i
+                        <h2 style="font-size: 1.6rem">Comments <a class="btn btn-primary btn-sm" href="{% url 'issues:add-comment' slug=issue_detail.slug %}"><i
                                 class="fas fa-plus"></i> Add comment</a></h2>
                         {% if issue_detail.comments.all %}
                         {% for comment in issue_detail.comments.all %}
@@ -123,6 +122,10 @@
                                 {% if comment.updated|date:"d-m-Y H:i:s" > comment.created|date:"d-m-Y H:i:s" %}
                                 <sup style="color: red;">edited</sup>
                                 {% endif %}
+                                <a class="btn-sm" href="{% url 'issues:edit-comment' pk=comment.pk %}">
+                                    <i class="fas fa-pencil-alt"></i></a>
+                                <a class="btn-sm" href="{% url 'issues:delete-comment' pk=comment.pk %}">
+                                    <i class="fas fa-trash-alt"></i></a>
                             </h6>
                             <p>{{comment.text}}</p>
                         </div>
