@@ -101,7 +101,8 @@ class Issue(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('issues:issue-detail', kwargs={'slug':self.slug})
+        return reverse('issues:issue-detail', kwargs={'slug':self.project.slug,
+                                                      'issue_slug':self.slug})
 
 
 class Comment(models.Model):

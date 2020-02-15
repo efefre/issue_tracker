@@ -18,7 +18,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
               <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=issue.slug %}">{{issue.slug}}: {{issue.summary}}</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=issue.project.slug issue_slug=issue.slug %}">{{issue.slug}}: {{issue.summary}}</a></li>
               <li class="breadcrumb-item active">Add comment</li>
             </ol>
           </div>
@@ -53,7 +53,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <a href="{% url 'issues:issue-detail' slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
+                  <a href="{% url 'issues:issue-detail' slug=issue.project.slug issue_slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
