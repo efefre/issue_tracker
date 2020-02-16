@@ -144,7 +144,7 @@ class DeleteAttachmentView(DeleteView):
     def get_success_url(self):
         issue = Issue.objects.get(attachments__pk = self.kwargs.get('pk'))
         issue_slug = issue.slug
-        return reverse('issues:edit-issue', kwargs={'slug': issue_slug})
+        return reverse('issues:edit-issue', kwargs={'project_slug': issue.project.slug, 'slug': issue_slug})
 
 
 @method_decorator(login_required, name='dispatch')

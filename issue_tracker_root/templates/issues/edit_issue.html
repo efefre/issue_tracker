@@ -90,7 +90,7 @@
                                         <small style="margin-top: 10px;">
                                             <br>Added:<br><b>{{attachment.added}}</b><br/>
                                         </small>
-                                            <a href="{% url 'issues:delete-attachment' pk=attachment.pk %}" class="btn btn-outline-danger btn-sm">
+                                            <a href="{% url 'issues:delete-attachment' project_slug=attachment.issue.project.slug issue_slug=attachment.issue.slug pk=attachment.pk %}" class="btn btn-outline-danger btn-sm">
                                                 <i class="fas fa-trash"></i></a>
                                    </div>
                                {% endfor %}

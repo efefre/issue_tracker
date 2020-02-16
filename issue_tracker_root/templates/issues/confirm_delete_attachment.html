@@ -51,7 +51,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <a href="{% url 'issues:edit-issue' slug=delete_attachment.issue.slug %}" class="pull-right btn btn-link">Cancel</a>
+                                <a href="{% url 'issues:edit-issue' project_slug=delete_attachment.issue.project.slug slug=delete_attachment.issue.slug %}" class="pull-right btn btn-link">Cancel</a>
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </div>
                         </form>

@@ -21,7 +21,7 @@ urlpatterns = [
     path('projects/<str:slug>/<int:issue_slug>', IssueDetailView.as_view(), name='issue-detail'),
     path('projects/<str:project_slug>/<slug:slug>/edit/', EditIssueView.as_view(), name='edit-issue'),
 
-    path('delete-attachment/<int:pk>/', DeleteAttachmentView.as_view(), name='delete-attachment'),
+    path('projects/<str:project_slug>/<str:issue_slug>/<int:pk>/delete-attachment', DeleteAttachmentView.as_view(), name='delete-attachment'),
 
     path('projects/<str:project_slug>/<slug:slug>/add-comment', AddCommentView.as_view(), name='add-comment'),
     path('projects/<str:project_slug>/<str:issue_slug>/<int:pk>/edit-comment', EditCommentView.as_view(), name='edit-comment'),
