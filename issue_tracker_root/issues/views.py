@@ -77,7 +77,7 @@ class IssueDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['issue_detail'] = Issue.objects.get(slug=self.kwargs['issue_slug'])
+        context['issue_detail'] = Issue.objects.get(slug=self.kwargs.get('issue_slug'))
         return context
 
 
