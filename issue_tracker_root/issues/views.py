@@ -94,7 +94,7 @@ class AddIssueView(CreateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        form =form.save(commit=False)
+        form = form.save(commit=False)
         form.reporter = self.request.user
         form.project = context['project']
         form.save()
@@ -118,9 +118,8 @@ class EditIssueView(UpdateView):
         context['attachment'] = AttachmentFormset()
         return context
 
-
     def form_valid(self, form):
-        formset = AttachmentFormset(self.request.POST, self.request.FILES,  prefix='attachments')
+        formset = AttachmentFormset(self.request.POST, self.request.FILES, prefix='attachments')
 
         if formset.is_valid():
             self.object = form.save()
@@ -137,7 +136,7 @@ class DeleteAttachmentView(DeleteView):
     context_object_name = 'delete_attachment'
 
     def get_success_url(self):
-        issue = Issue.objects.get(attachments__pk = self.kwargs.get('pk'))
+        issue = Issue.objects.get(attachments__pk=self.kwargs.get('pk'))
         issue_slug = issue.slug
         return reverse('issues:edit-issue', kwargs={'project_slug': issue.project.slug, 'slug': issue_slug})
 
@@ -154,7 +153,7 @@ class AddCommentView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['issue'] = Issue.objects.get(slug = self.kwargs.get('slug'))
+        context['issue'] = Issue.objects.get(slug=self.kwargs.get('slug'))
         context['author'] = self.request.user
         return context
 
@@ -174,9 +173,7 @@ class EditCommentView(UpdateView):
     form_class = EditCommentForm
 
     def get_success_url(self):
-        issue = Issue.objects.get(comments__pk = self.kwargs.get('pk'))
-        issue_slug = issue.slug
-        # return f'/{issue_slug}'
+        issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
         return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
 
     def get_context_data(self, **kwargs):
