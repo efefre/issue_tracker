@@ -87,9 +87,8 @@ class AddIssueView(CreateView):
     form_class = AddIssueForm
     model = Issue
 
-    def get_success_url(self):
-        return f'/project/{self.kwargs.get("slug")}'
-
+    def get_success_url(self, **kwargs):
+        return reverse('issues:project-detail', kwargs={'slug': self.kwargs.get('slug')})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
