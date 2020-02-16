@@ -124,7 +124,7 @@
                                 {% endif %}
                                 <a class="btn-sm" href="{% url 'issues:edit-comment' project_slug=comment.issue.project.slug issue_slug=comment.issue.slug pk=comment.pk %}">
                                     <i class="fas fa-pencil-alt"></i></a>
-                                <a class="btn-sm" href="{% url 'issues:delete-comment' pk=comment.pk %}">
+                                <a class="btn-sm" href="{% url 'issues:delete-comment' project_slug=comment.issue.project.slug issue_slug=comment.issue.slug pk=comment.pk %}">
                                     <i class="fas fa-trash-alt"></i></a>
                             </h6>
                             <p>{{comment.text}}</p>
