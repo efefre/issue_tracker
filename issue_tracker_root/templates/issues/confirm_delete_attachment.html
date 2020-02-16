@@ -18,7 +18,8 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=delete_attachment.issue.project.slug issue_slug=delete_attachment.issue.slug %}">{{delete_attachment.issue.slug}}: {{delete_attachment.issue.summary}}</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'issues:project-detail' slug=delete_attachment.issue.project.slug %}">{{delete_attachment.issue.project.name}}</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'issues:edit-issue' project_slug=delete_attachment.issue.project.slug slug=delete_attachment.issue.slug %}">Edit: {{delete_attachment.issue.summary}}</a></li>
                         <li class="breadcrumb-item active">Delete attachment</li>
                     </ol>
                 </div>

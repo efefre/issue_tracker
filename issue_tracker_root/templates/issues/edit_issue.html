@@ -1,7 +1,7 @@
 {% extends "issues/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans issue.slug %}{% endblock %}
+{% block head_title %}{% trans 'Edit: '|add:issue.summary %}{% endblock %}
 {% block body_class %}sidebar-mini{% endblock body_class %}
 {% block content %}
 
@@ -21,10 +21,8 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-                            <li class="breadcrumb-item"><a
-                                    href="{% url 'issues:project-detail' slug=issue.project.slug %}">{{issue.project.name}}</a>
-                            </li>
-                            <li class="breadcrumb-item active">{{issue.slug}}</li>
+                            <li class="breadcrumb-item"><a href="{% url 'issues:project-detail' slug=issue.project.slug %}">{{issue.project.name}}</a></li>
+                            <li class="breadcrumb-item active">Edit: {{issue.summary}}</li>
                         </ol>
                     </div>
                 </div>

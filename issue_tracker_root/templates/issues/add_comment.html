@@ -12,13 +12,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Add comment to issue: <strong>{{issue.summary}} ({{issue.slug}})</strong></h1>
+            <h1>Add comment to issue: <strong>{{issue.summary}}</strong></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
               <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=issue.project.slug issue_slug=issue.slug %}">{{issue.slug}}: {{issue.summary}}</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'issues:project-detail' slug=issue.project.slug %}">{{issue.project.name}}</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=issue.project.slug issue_slug=issue.slug %}">{{issue.summary}}</a></li>
               <li class="breadcrumb-item active">Add comment</li>
             </ol>
           </div>
@@ -47,7 +48,7 @@
                   <div class="card-body">
                     <div class="form-group">
                         <label for="id_text">Comment</label>
-                        {{ form.text }}
+                        {{form.text}}
                       </div>
                   </div>
                 <!-- /.card-body -->
