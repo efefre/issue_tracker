@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView, DetailView
 
 from .forms import AddProjectForm, EditProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm, \
                    EditCommentForm
@@ -67,14 +67,10 @@ class ProjectDetailView(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
-class IssueDetailView(TemplateView):
+class IssueDetailView(DetailView):
     model = Issue
     template_name = 'issues/issue.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['issue_detail'] = Issue.objects.get(slug=self.kwargs.get('issue_slug'))
-        return context
+    context_object_name = 'issue_detail'
 
 
 @method_decorator(login_required, name='dispatch')
