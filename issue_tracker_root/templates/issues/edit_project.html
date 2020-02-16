@@ -18,7 +18,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-                        <li class="breadcrumb-item active">Update project</li>
+                        <li class="breadcrumb-item active">Update project: {{project.name}}</li>
                     </ol>
                 </div>
             </div>
@@ -39,11 +39,11 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="id_name">Project name</label>
-                                    {{ form.name }}
+                                    {{form.name}}
                                 </div>
                                 <div class="form-group">
                                     <label for="id_slug">Short name</label>
-                                    {{ form.slug }}
+                                    {{form.slug}}
                                 </div>
                                 <div class="form-group">
                                     <label for="id_status">Status</label>

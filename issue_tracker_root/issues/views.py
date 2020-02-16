@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
 
-from .forms import AddProjectForm, UpdateProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm, \
+from .forms import AddProjectForm, EditProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm, \
     EditCommentForm
 from .models import Issue, Project, Attachment, Comment
 
@@ -40,8 +40,8 @@ class AddProjectView(FormView):
 @method_decorator(login_required, name='dispatch')
 class EditProjectView(UpdateView):
     model = Project
-    template_name = 'issues/update_project.html'
-    form_class = UpdateProjectForm
+    template_name = 'issues/edit_project.html'
+    form_class = EditProjectForm
 
     def get_success_url(self):
         return reverse('issues:projects-list')
