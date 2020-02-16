@@ -57,16 +57,12 @@ class DeleteProjectView(DeleteView):
 
 @method_decorator(login_required, name='dispatch')
 class ProjectDetailView(ListView):
-    model = Issue
+    model = Project
     template_name = 'issues/project_detail.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        slug = self.kwargs['slug']
-        context['issues_in_project'] = Issue.objects.filter(project__slug=slug).order_by('-created')
-        context['tasks_in_project'] = Issue.objects.filter(project__slug=slug, type='task').order_by('-created')
-        context['bugs_in_project'] = Issue.objects.filter(project__slug=slug, type='bug').order_by('-created')
-        context['project_detail'] = Project.objects.get(slug=slug)
+        context['project_detail'] = Project.objects.get(slug=self.kwargs['slug'])
         return context
 
 
