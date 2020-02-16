@@ -72,6 +72,12 @@ class IssueDetailView(DetailView):
     template_name = 'issues/issue.html'
     context_object_name = 'issue_detail'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        issue = self.get_object()
+
+        context['comments'] = issue.comments.select_related('author').all()
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class AddIssueView(CreateView):

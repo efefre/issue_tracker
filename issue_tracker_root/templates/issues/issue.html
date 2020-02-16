@@ -115,8 +115,7 @@
                         <hr>
                         <h2 style="font-size: 1.6rem">Comments <a class="btn btn-primary btn-sm" href="{% url 'issues:add-comment' project_slug=issue_detail.project.slug slug=issue_detail.slug %}"><i
                                 class="fas fa-plus"></i> Add comment</a></h2>
-                        {% if issue_detail.comments.all %}
-                        {% for comment in issue_detail.comments.all %}
+                        {% for comment in comments.all %}
                         <div class="callout callout-info">
                             <h6><strong>{{comment.author}}</strong> added a comment - {{comment.created}}
                                 {% if comment.updated|date:"d-m-Y H:i:s" > comment.created|date:"d-m-Y H:i:s" %}
@@ -130,7 +129,6 @@
                             <p>{{comment.text}}</p>
                         </div>
                         {% endfor %}
-                        {% endif %}
                     </div>
                 </div>
             </div>
