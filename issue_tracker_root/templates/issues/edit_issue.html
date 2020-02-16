@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'issues:issue-detail' slug=issue.project.slug issue_slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
+                    <a href="{% url 'issues:issue-detail' project_slug=issue.project.slug slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <!-- /.card-body -->

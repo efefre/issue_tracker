@@ -145,7 +145,7 @@ class AddCommentView(CreateView):
 
     def get_success_url(self):
         issue = Issue.objects.get(slug=self.kwargs.get('slug'))
-        return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
+        return reverse('issues:issue-detail', kwargs={'project_slug': issue.project.slug, 'slug': issue.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -170,7 +170,7 @@ class EditCommentView(UpdateView):
 
     def get_success_url(self):
         issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
-        return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
+        return reverse('issues:issue-detail', kwargs={'project_slug': issue.project.slug, 'slug': issue.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -185,7 +185,7 @@ class DeleteCommentView(DeleteView):
 
     def get_success_url(self):
         issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
-        return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
+        return reverse('issues:issue-detail', kwargs={'project_slug': issue.project.slug, 'slug': issue.slug})
 
 
 @method_decorator(login_required, name='dispatch')
