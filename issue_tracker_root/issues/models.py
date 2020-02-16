@@ -14,10 +14,10 @@ class Project(models.Model):
         ('cancel', 'cancel')
     ]
 
-    only_letters = RegexValidator(r'^[a-zA-Z]*$', 'Only letters are allowed.')
+    only_letters = RegexValidator(r'^[A-Z]*$', 'Only capital letters are allowed.')
 
     name = models.TextField(verbose_name=_('Project name'), unique=True)
-    slug = models.SlugField(max_length=10, validators=[only_letters])
+    slug = models.SlugField(max_length=10, validators=[only_letters], unique=True)
     status = models.CharField(choices=PROJECT_STATUS_CHOICES,
                               default='in progress',
                               verbose_name=_('Project status'),
