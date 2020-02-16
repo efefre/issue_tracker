@@ -83,12 +83,11 @@ class Issue(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
 
     def create_slug(self):
-        project_slug = str(self.project.slug).upper()
         count_issue_in_project = Issue.objects.filter(project=self.project).count()
         if self.slug:
             issue_slug = self.slug
         else:
-            issue_slug = f'{project_slug}-{count_issue_in_project+1}'
+            issue_slug = count_issue_in_project+1
         return issue_slug
 
     def save(self, *args, **kwargs):
