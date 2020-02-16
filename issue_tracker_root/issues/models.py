@@ -76,11 +76,11 @@ class Issue(models.Model):
                                  verbose_name=_('Reporter'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
-    summary = models.TextField(verbose_name=_('Summary'), max_length=50)
+    summary = models.CharField(verbose_name=_('Summary'), max_length=80)
     description = models.TextField(verbose_name=_('Description'))
     environment = models.CharField(choices=ENVIRONMENT_CHOICES, verbose_name=_('Environment'),
                                 max_length=100, blank=True)
-    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, editable=False, db_index=True)
 
     def create_slug(self):
         count_issue_in_project = Issue.objects.filter(project=self.project).count()
@@ -112,7 +112,7 @@ class Comment(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Issue'))
 
     def __str__(self):
-        return f'Comment from issue {self.issue.summary}'
+        return f'Comment for issue {self.issue.summary}'
 
 
 def get_attachment_path(instance, filename):
