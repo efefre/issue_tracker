@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, CreateView
 
 from .forms import AddProjectForm, EditProjectForm, AddIssueForm, EditIssueForm, AttachmentFormset, AddCommentForm, \
-    EditCommentForm
+                   EditCommentForm
 from .models import Issue, Project, Attachment, Comment
 
 
@@ -120,7 +120,6 @@ class EditIssueView(UpdateView):
 
 
     def form_valid(self, form):
-        context = self.get_context_data()
         formset = AttachmentFormset(self.request.POST, self.request.FILES,  prefix='attachments')
 
         if formset.is_valid():
