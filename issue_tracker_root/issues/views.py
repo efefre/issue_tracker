@@ -96,7 +96,6 @@ class AddIssueView(CreateView):
         context['attachment'] = AttachmentFormset()
         return context
 
-
     def form_valid(self, form):
         context = self.get_context_data()
         form =form.save(commit=False)
@@ -145,7 +144,7 @@ class DeleteAttachmentView(DeleteView):
     def get_success_url(self):
         issue = Issue.objects.get(attachments__pk = self.kwargs.get('pk'))
         issue_slug = issue.slug
-        return f'/{issue_slug}/edit'
+        return reverse('issues:edit-issue', kwargs={'slug': issue_slug})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -156,8 +155,7 @@ class AddCommentView(CreateView):
 
     def get_success_url(self):
         issue = Issue.objects.get(slug=self.kwargs.get('slug'))
-        issue_slug = issue.slug
-        return f'/{issue_slug}'
+        return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -183,7 +181,8 @@ class EditCommentView(UpdateView):
     def get_success_url(self):
         issue = Issue.objects.get(comments__pk = self.kwargs.get('pk'))
         issue_slug = issue.slug
-        return f'/{issue_slug}'
+        # return f'/{issue_slug}'
+        return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -198,8 +197,7 @@ class DeleteCommentView(DeleteView):
 
     def get_success_url(self):
         issue = Issue.objects.get(comments__pk=self.kwargs.get('pk'))
-        issue_slug = issue.slug
-        return f'/{issue_slug}'
+        return reverse('issues:issue-detail', kwargs={'slug': issue.project.slug, 'issue_slug': issue.slug})
 
 
 @method_decorator(login_required, name='dispatch')
