@@ -18,7 +18,8 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
               <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=comment.issue.slug %}">{{comment.issue.slug}}: {{comment.issue.summary}}</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'issues:project-detail' slug=comment.issue.project.slug %}">{{comment.issue.project.name}}</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'issues:issue-detail' slug=comment.issue.project.slug issue_slug=comment.issue.slug %}">{{comment.issue.summary}}</a></li>
               <li class="breadcrumb-item active">Edit comment</li>
             </ol>
           </div>
@@ -47,13 +48,13 @@
                   <div class="card-body">
                     <div class="form-group">
                         <label for="id_text">Comment</label>
-                        {{ form.text }}
+                        {{form.text}}
                       </div>
                   </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <a href="{% url 'issues:issue-detail' slug=comment.issue.slug %}" class="pull-right btn btn-link">Cancel</a>
+                  <a href="{% url 'issues:issue-detail' slug=comment.issue.project.slug issue_slug=comment.issue.slug %}" class="pull-right btn btn-link">Cancel</a>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>

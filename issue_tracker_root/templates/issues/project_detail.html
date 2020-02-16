@@ -1,4 +1,5 @@
 {% extends "issues/base.html" %}
+{% load issues_extras %}
 {% load i18n %}
 
 {% block head_title %}{% trans project_detail.name %}{% endblock %}
@@ -13,7 +14,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Project detail: <strong>{{project_detail.name}}</strong> <a class="btn btn-primary btn-sm" href="{% url 'issues:add-issue' slug=project_detail.slug %}"><i class="fas fa-plus"></i> Add issue</a></h1>
-                    <small><strong>Short name: </strong>{{project_detail.slug|upper}} |
+                    <small><strong>Short name: </strong>{{project_detail.slug}} |
                             <strong>Status: </strong>
                             <span class="badge
                               {% if project_detail.status == 'success' %}
@@ -39,10 +40,10 @@
 
     <!-- Main content -->
     <section class="content">
-        {% if not issues_in_project %}
+        {% if not project_detail.issues.all %}
         <p>There is no issues in this project!</p>
         {% else %}
-            {% if tasks_in_project %}
+            {% if project_detail.issues.all|tasks %}
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
@@ -82,10 +83,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for issue in tasks_in_project %}
+                        {% for issue in project_detail.issues.all|tasks %}
                         <tr>
                             <td>
-                                {{ forloop.counter }}
+                                {{forloop.counter}}
                             </td>
                             <td>
                                 <a>
@@ -152,7 +153,7 @@
             </div>
             <!-- /.card -->
             {% endif %}
-            {% if bugs_in_project %}
+            {% if project_detail.issues.all|bugs %}
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Bugs</h3>
@@ -191,10 +192,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for issue in bugs_in_project %}
+                        {% for issue in project_detail.issues.all|bugs %}
                         <tr>
                             <td>
-                                {{ forloop.counter }}
+                                {{forloop.counter}}
                             </td>
                             <td>
                                 <a>

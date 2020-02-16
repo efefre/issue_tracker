@@ -1,7 +1,7 @@
 {% extends "issues/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans issue_detail.slug %}{% endblock %}
+{% block head_title %}{% trans issue_detail.summary %}{% endblock %}
 {% block body_class %}sidebar-mini{% endblock body_class %}
 {% block content %}
 
@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>{{issue_detail.summary|truncatechars:50}} <a class="btn btn-primary btn-sm" href="{% url 'issues:edit-issue' slug=issue_detail.slug %}">
+                    <h1>{{issue_detail.summary|truncatechars:50}} <a class="btn btn-primary btn-sm" href="{% url 'issues:edit-issue' project_slug=issue_detail.project.slug slug=issue_detail.slug %}">
                         <i class="fas fa-pencil-alt"></i> Edit</a></h1>
                     <small>Project: {{issue_detail.project.name}}</small>
                 </div>
@@ -23,7 +23,7 @@
                         <li class="breadcrumb-item active"><a
                                 href="{% url 'issues:project-detail' slug=issue_detail.project.slug %}">{{issue_detail.project.name}}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{issue_detail.slug}}</li>
+                        <li class="breadcrumb-item active">{{issue_detail.summary}}</li>
                     </ol>
                 </div>
             </div>
@@ -113,24 +113,22 @@
                 <div class="row">
                     <div class="col-md-12">
                         <hr>
-                        <h2 style="font-size: 1.6rem">Comments <a class="btn btn-primary btn-sm" href="{% url 'issues:add-comment' slug=issue_detail.slug %}"><i
+                        <h2 style="font-size: 1.6rem">Comments <a class="btn btn-primary btn-sm" href="{% url 'issues:add-comment' project_slug=issue_detail.project.slug slug=issue_detail.slug %}"><i
                                 class="fas fa-plus"></i> Add comment</a></h2>
-                        {% if issue_detail.comments.all %}
-                        {% for comment in issue_detail.comments.all %}
+                        {% for comment in comments.all %}
                         <div class="callout callout-info">
                             <h6><strong>{{comment.author}}</strong> added a comment - {{comment.created}}
                                 {% if comment.updated|date:"d-m-Y H:i:s" > comment.created|date:"d-m-Y H:i:s" %}
                                 <sup style="color: red;">edited</sup>
                                 {% endif %}
-                                <a class="btn-sm" href="{% url 'issues:edit-comment' pk=comment.pk %}">
+                                <a class="btn-sm" href="{% url 'issues:edit-comment' project_slug=comment.issue.project.slug issue_slug=comment.issue.slug pk=comment.pk %}">
                                     <i class="fas fa-pencil-alt"></i></a>
-                                <a class="btn-sm" href="{% url 'issues:delete-comment' pk=comment.pk %}">
+                                <a class="btn-sm" href="{% url 'issues:delete-comment' project_slug=comment.issue.project.slug issue_slug=comment.issue.slug pk=comment.pk %}">
                                     <i class="fas fa-trash-alt"></i></a>
                             </h6>
                             <p>{{comment.text}}</p>
                         </div>
                         {% endfor %}
-                        {% endif %}
                     </div>
                 </div>
             </div>

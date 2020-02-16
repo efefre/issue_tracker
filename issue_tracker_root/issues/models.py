@@ -14,10 +14,10 @@ class Project(models.Model):
         ('cancel', 'cancel')
     ]
 
-    only_letters = RegexValidator(r'^[a-zA-Z]*$', 'Only letters are allowed.')
+    only_letters = RegexValidator(r'^[A-Z]*$', 'Only capital letters are allowed.')
 
     name = models.TextField(verbose_name=_('Project name'), unique=True)
-    slug = models.SlugField(max_length=10, validators=[only_letters])
+    slug = models.SlugField(max_length=10, validators=[only_letters], unique=True)
     status = models.CharField(choices=PROJECT_STATUS_CHOICES,
                               default='in progress',
                               verbose_name=_('Project status'),
@@ -76,19 +76,18 @@ class Issue(models.Model):
                                  verbose_name=_('Reporter'))
     created = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     updated = models.DateTimeField(auto_now=True, verbose_name=_("Updated"))
-    summary = models.TextField(verbose_name=_('Summary'), max_length=50)
+    summary = models.CharField(verbose_name=_('Summary'), max_length=80)
     description = models.TextField(verbose_name=_('Description'))
     environment = models.CharField(choices=ENVIRONMENT_CHOICES, verbose_name=_('Environment'),
                                 max_length=100, blank=True)
-    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, editable=False, db_index=True)
 
     def create_slug(self):
-        project_slug = str(self.project.slug).upper()
         count_issue_in_project = Issue.objects.filter(project=self.project).count()
         if self.slug:
             issue_slug = self.slug
         else:
-            issue_slug = f'{project_slug}-{count_issue_in_project+1}'
+            issue_slug = count_issue_in_project+1
         return issue_slug
 
     def save(self, *args, **kwargs):
@@ -101,7 +100,8 @@ class Issue(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('issues:issue-detail', kwargs={'slug':self.slug})
+        return reverse('issues:issue-detail', kwargs={'project_slug': self.project.slug,
+                                                      'slug': self.slug})
 
 
 class Comment(models.Model):
@@ -112,7 +112,7 @@ class Comment(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name='comments', verbose_name=_('Issue'))
 
     def __str__(self):
-        return f'Comment from issue {self.issue.summary}'
+        return f'Comment for issue {self.issue.summary}'
 
 
 def get_attachment_path(instance, filename):

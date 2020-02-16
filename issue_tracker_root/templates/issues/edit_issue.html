@@ -1,7 +1,7 @@
 {% extends "issues/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans issue.slug %}{% endblock %}
+{% block head_title %}{% trans 'Edit: '|add:issue.summary %}{% endblock %}
 {% block body_class %}sidebar-mini{% endblock body_class %}
 {% block content %}
 
@@ -21,10 +21,8 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{% url 'issues:dashboard' %}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{% url 'issues:projects-list' %}">Projects</a></li>
-                            <li class="breadcrumb-item"><a
-                                    href="{% url 'issues:project-detail' slug=issue.project.slug %}">{{issue.project.name}}</a>
-                            </li>
-                            <li class="breadcrumb-item active">{{issue.slug}}</li>
+                            <li class="breadcrumb-item"><a href="{% url 'issues:project-detail' slug=issue.project.slug %}">{{issue.project.name}}</a></li>
+                            <li class="breadcrumb-item active">Edit: {{issue.summary}}</li>
                         </ol>
                     </div>
                 </div>
@@ -90,7 +88,7 @@
                                         <small style="margin-top: 10px;">
                                             <br>Added:<br><b>{{attachment.added}}</b><br/>
                                         </small>
-                                            <a href="{% url 'issues:delete-attachment' pk=attachment.pk %}" class="btn btn-outline-danger btn-sm">
+                                            <a href="{% url 'issues:delete-attachment' project_slug=attachment.issue.project.slug issue_slug=attachment.issue.slug pk=attachment.pk %}" class="btn btn-outline-danger btn-sm">
                                                 <i class="fas fa-trash"></i></a>
                                    </div>
                                {% endfor %}
@@ -99,7 +97,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'issues:issue-detail' slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
+                    <a href="{% url 'issues:issue-detail' project_slug=issue.project.slug slug=issue.slug %}" class="pull-right btn btn-link">Cancel</a>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <!-- /.card-body -->
