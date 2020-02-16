@@ -24,6 +24,6 @@ urlpatterns = [
     path('delete-attachment/<int:pk>/', DeleteAttachmentView.as_view(), name='delete-attachment'),
 
     path('projects/<str:project_slug>/<slug:slug>/add-comment', AddCommentView.as_view(), name='add-comment'),
-    path('edit-comment/<int:pk>', EditCommentView.as_view(), name='edit-comment'),
+    path('projects/<str:project_slug>/<str:issue_slug>/<int:pk>/edit-comment', EditCommentView.as_view(), name='edit-comment'),
     path('delete-comment/<int:pk>', DeleteCommentView.as_view(), name='delete-comment')
 ]
