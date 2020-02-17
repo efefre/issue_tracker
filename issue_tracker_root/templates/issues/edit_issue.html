@@ -66,6 +66,7 @@
                             {% for form in attachment.forms %}
                                 <div class="form-group">
                                     {{form.file}}
+                                    {{form.file.error}}
                                 </div>
                             {% endfor %}
                         </div>
