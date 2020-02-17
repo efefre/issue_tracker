@@ -10,8 +10,8 @@ import pendulum
 class Project(models.Model):
     PROJECT_STATUS_CHOICES = [
         ("in progress", "In progress"),
-        ("success", "success"),
-        ("cancel", "cancel"),
+        ("success", "Success"),
+        ("cancel", "Cancel"),
     ]
 
     only_letters = RegexValidator(r"^[A-Z]*$", "Only capital letters are allowed.")
