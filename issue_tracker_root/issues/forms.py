@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import Project, Issue, Attachment, Comment
 from django.forms.models import inlineformset_factory
 
@@ -102,15 +104,49 @@ class AddAttachmentForm(forms.ModelForm):
         model = Attachment
         exclude = ()
 
+## Validation
+    def clean_file(self):
+        cleaned_data = super().clean()
+        file = cleaned_data["file"]
+        allowed_extensions = ["pdf", "jpg"]
+        file_ext = str(file).split(".")[-1]
 
-AttachmentFormset = inlineformset_factory(
-    Issue,
-    Attachment,
-    form=AddAttachmentForm,
-    fields=["file",],
-    extra=1,
-    can_delete=True,
-)
+        if file_ext not in allowed_extensions:
+            self.add_error("file", "File couldn't be uploaded. Wrong extension.")
+            raise ValidationError("Wrong extension")
+        else:
+            return file
+
+
+class AttachmentFormset(
+    forms.inlineformset_factory(
+        Issue,
+        Attachment,
+        form=AddAttachmentForm,
+        fields=["file",],
+        extra=1,
+        can_delete=True,
+    )
+):
+    def clean(self):
+        error = False
+        for form in self.forms:
+            # print(form)
+            if not form.is_valid():
+                error = True
+
+        if error:
+            raise ValidationError("Wrong extension!")
+
+
+# AttachmentFormset = inlineformset_factory(
+#     Issue,
+#     Attachment,
+#     form=AddAttachmentForm,
+#     fields=["file",],
+#     extra=1,
+#     can_delete=True,
+# )
 
 
 class AddCommentForm(forms.ModelForm):
