@@ -36,7 +36,7 @@ class ProjectsListView(ListView):
     template_name = "issues/projects_list.html"
 
     def get_queryset(self):
-        query = super().get_queryset().order_by("-created")
+        query = super().get_queryset().prefetch_related('issues').order_by("-created")
         return query
 
 
