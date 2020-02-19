@@ -80,11 +80,12 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        {% if issue_detail.attachments.all %}
+                        {% with issue_detail.attachments.all as issue_attachments %}
+                        {% if issue_attachments %}
                         <hr>
                         <h2 style="font-size: 1.6rem">Attachments</h2>
                         <div class="row">
-                            {% for attachment in issue_detail.attachments.all %}
+                            {% for attachment in issue_attachments %}
                             <div class="col-sm-2 text-center">
                                 {% if 'pdf' in attachment.get_type %}
                                 <a href="/media/{{attachment.file}}" target="_blank">
@@ -107,6 +108,7 @@
                         {% endfor %}
                         </div>
                         {% endif %}
+                        {% endwith %}
                     </div>
                 </div>
 
