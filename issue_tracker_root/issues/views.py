@@ -76,7 +76,7 @@ class ProjectDetailView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["project_detail"] = Project.objects.get(slug=self.kwargs["slug"])
+        context["project_detail"] = Project.objects.prefetch_related('issues').get(slug=self.kwargs["slug"])
         return context
 
 
