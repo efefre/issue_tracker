@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+from django.db.models import Prefetch
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import (
@@ -76,7 +77,8 @@ class ProjectDetailView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["project_detail"] = Project.objects.prefetch_related('issues').get(slug=self.kwargs["slug"])
+        prefetch = Prefetch('issues', queryset=Issue.objects.select_related('assignee').all())
+        context["project_detail"] = Project.objects.prefetch_related(prefetch).get(slug=self.kwargs["slug"])
         return context
 
 
