@@ -236,5 +236,5 @@ class AssignedToMeView(ListView):
     context_object_name = "my_issue"
 
     def get_queryset(self):
-        query = Issue.objects.filter(assignee=self.request.user)
+        query = Issue.objects.select_related('project','reporter').filter(assignee=self.request.user)
         return query
