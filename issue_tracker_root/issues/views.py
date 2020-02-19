@@ -86,6 +86,7 @@ class ProjectDetailView(ListView):
 class IssueDetailView(DetailView):
     model = Issue
     template_name = "issues/issue.html"
+    queryset = Issue.objects.select_related('assignee','reporter').all()
     context_object_name = "issue_detail"
 
     def get_context_data(self, **kwargs):
