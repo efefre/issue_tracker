@@ -2,8 +2,17 @@ import pytest
 
 from django.urls import reverse
 
-@pytest.mark.django_db
-def test_view_account_login(client):
-   url = reverse('account_login')
-   response = client.get(url)
-   assert response.status_code == 200
+
+class TestViewsWithoutLogin:
+    @pytest.mark.django_db
+    def test_view_account_login(self, client):
+        url = reverse("account_login")
+
+        response = client.get(url)
+        assert response.status_code == 200
+
+    @pytest.mark.django_db
+    def test_homepage(self, client):
+        url = reverse("issues:dashboard")
+        response = client.get(url)
+        assert response.status_code == 302
