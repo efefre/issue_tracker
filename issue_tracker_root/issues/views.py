@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+from django.db.models import Prefetch
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import (
@@ -36,7 +37,7 @@ class ProjectsListView(ListView):
     template_name = "issues/projects_list.html"
 
     def get_queryset(self):
-        query = super().get_queryset().order_by("-created")
+        query = super().get_queryset().prefetch_related('issues').order_by("-created")
         return query
 
 
@@ -76,7 +77,8 @@ class ProjectDetailView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["project_detail"] = Project.objects.get(slug=self.kwargs["slug"])
+        prefetch = Prefetch('issues', queryset=Issue.objects.select_related('assignee').all())
+        context["project_detail"] = Project.objects.prefetch_related(prefetch).get(slug=self.kwargs["slug"])
         return context
 
 
@@ -84,6 +86,7 @@ class ProjectDetailView(ListView):
 class IssueDetailView(DetailView):
     model = Issue
     template_name = "issues/issue.html"
+    queryset = Issue.objects.select_related('assignee','reporter').all()
     context_object_name = "issue_detail"
 
     def get_context_data(self, **kwargs):
@@ -234,5 +237,5 @@ class AssignedToMeView(ListView):
     context_object_name = "my_issue"
 
     def get_queryset(self):
-        query = Issue.objects.filter(assignee=self.request.user)
+        query = Issue.objects.select_related('project','reporter').filter(assignee=self.request.user)
         return query
