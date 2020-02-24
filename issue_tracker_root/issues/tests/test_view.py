@@ -29,6 +29,12 @@ class TestViewsWithoutLogin:
        response = client.get(url)
        assert response.status_code == 302
 
+    @pytest.mark.django_db
+    def test_add_project(self, client):
+       url = reverse("issues:add-project")
+       response = client.get(url)
+       assert response.status_code == 302
+
 
 class TestViewsLoggedInUsers:
     def test_homepage(self, admin_client):
@@ -45,3 +51,8 @@ class TestViewsLoggedInUsers:
         url = reverse("issues:projects-list")
         response = admin_client.get(url)
         assert response.status_code == 200
+
+    def test_add_project(self, admin_client):
+       url = reverse("issues:add-project")
+       response = admin_client.get(url)
+       assert response.status_code == 200
