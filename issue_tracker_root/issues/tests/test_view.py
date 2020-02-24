@@ -17,9 +17,20 @@ class TestViewsWithoutLogin:
         response = client.get(url)
         assert response.status_code == 302
 
+    @pytest.mark.django_db
+    def test_my_issues(self, client):
+        url = reverse("issues:my-issues")
+        response = client.get(url)
+        assert response.status_code == 302
+
 
 class TestViewsLoggedInUsers:
-   def test_homepage(self, admin_client):
-      url = reverse('issues:dashboard')
-      response = admin_client.get(url)
-      assert response.status_code == 200
+    def test_homepage(self, admin_client):
+        url = reverse('issues:dashboard')
+        response = admin_client.get(url)
+        assert response.status_code == 200
+
+    def test_my_issues(self, admin_client):
+        url = reverse("issues:my-issues")
+        response = admin_client.get(url)
+        assert response.status_code == 200
