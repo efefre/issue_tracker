@@ -16,3 +16,10 @@ class TestViewsWithoutLogin:
         url = reverse("issues:dashboard")
         response = client.get(url)
         assert response.status_code == 302
+
+
+class TestViewsLoggedInUsers:
+   def test_homepage(self, admin_client):
+      url = reverse('issues:dashboard')
+      response = admin_client.get(url)
+      assert response.status_code == 200
