@@ -25,7 +25,7 @@ urlpatterns = [
 
     path("projects/", ProjectsListView.as_view(), name="projects-list"),
     path("projects/add/", AddProjectView.as_view(), name="add-project"),
-    path("projects/<int:pk>/update/", EditProjectView.as_view(), name="update-project"),
+    path("projects/<slug:slug>/update/", EditProjectView.as_view(), name="update-project"),
     path(
         "projects/<int:pk>/delete/", DeleteProjectView.as_view(), name="delete-project"
     ),
