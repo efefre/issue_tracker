@@ -10,9 +10,9 @@ services:
       - POSTGRES_PORT=5432
   web:
     build: .
-    container_name: issue_trakcer
+    container_name: issue_tracker
     volumes:
-      - ./issue_trakcer_root:/code
+      - ./issue_tracker_root:/code
     ports:
       - "8000:8000" 
     depends_on:
