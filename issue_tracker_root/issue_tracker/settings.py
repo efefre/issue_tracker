@@ -106,10 +106,10 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'issue_tracker',
-        'USER': 'local_admin',
-        'PASSWORD': '1234567890',
-        'HOST': '127.0.0.1',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': '5432' #default
     }
 }
