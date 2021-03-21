@@ -22,10 +22,46 @@
 * Python 3.7
 * Django 3.0.2
 * PostgreSQL
+* Docker
 
 
 ## Setup
 All information about environment you can find in requirements.txt
+
+Clone project:
+```bash
+git clone https://github.com/efefre/issue_tracker.git
+```
+Use:
+* [Docker](https://docs.docker.com/install/)
+* [docker-compose](https://docs.docker.com/compose/install/)
+
+Run project:
+```bash
+make start
+```
+
+Makemigrations:
+```bash
+make makemigrations
+```
+
+Migrate:
+```bash
+make migrate
+```
+
+Create super user (root):
+```bash
+make createsuperuser
+```
+
+Open:
+```bash
+127.0.0.1:8000
+```
+
+_More details about [make](https://github.com/efefre/issue_tracker/blob/master/Makefile)_.
 
 
 ## Frontend
@@ -33,5 +69,5 @@ Base on AdminLTE https://adminlte.io/docs/3.0/license.html (an open source proje
 
 
 ## Status
-Project is: _in progress_.
+Project is: _no longer continue_.
 
