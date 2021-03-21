@@ -19,8 +19,8 @@
 * Unique issue number
 
 ## Technologies
-* Python 3.7
-* Django 3.0.2
+* Python 3.9
+* Django 3.1.6
 * PostgreSQL
 * Docker
 
