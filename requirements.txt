@@ -1,5 +1,5 @@
 appdirs==1.4.3
-asgiref==3.2.3
+asgiref==3.2.10
 astroid==2.3.3
 attrs==19.3.0
 black==19.10b0
@@ -9,6 +9,7 @@ Click==7.0
 defusedxml==0.6.0
 Django==3.1.6
 django-allauth==0.41.0
+django-debug-toolbar==2.2
 entrypoints==0.3
 flake8==3.7.9
 gitdb2==3.0.0
